@@ -11,7 +11,8 @@
   <title>Document</title>
 </head>
 <body>
-  
+  <div> 
+
   <img class="wave" src="../../assets/wave.png">
 	<div class="container">
 		<div class="img">
@@ -19,17 +20,17 @@
 			<img src="../../assets/teaching.svg">
       
 		</div>
-		<div class="login-content" *ngIf="isLogin">
-			<form action="index.html">
+		<div class="login-content">
+			<form (ngSubmit)="handleLogin()" [formGroup]="validateForm">
 				<img src="../../assets/account.svg">
-				<h2 class="head-title">Đăng nhập</h2>
+				<h2 class="head-title" style="margin-bottom: 80px;">Đăng nhập</h2>
            		<div id="email" class="input-div one">
            		   <div class="i">
            		   		<i class="fa fa-user"></i>
            		   </div>
            		   <div class="div">
                   <h5>Tài khoản email</h5>
-           		   		<input id="inputEmail" (focusout)="resetFocus()" (focus)="handleChangeEmail()"  type="text" class="input">
+           		   		<input formControlName="userName" id="inputEmail" (focusout)="resetFocus()" (focus)="handleChangeEmail()"  type="text" class="input">
            		   </div>
            		</div>
            		<div id="password" class="input-div pass">
@@ -38,10 +39,19 @@
            		   </div>
            		   <div class="div">
            		    	<h5>Mật khẩu </h5>
-           		    	<input id="inputPassword" (focusout)="resetFocus()" (focus)="handleChangePassword()" type="password" class="input">
+           		    	<input formControlName="password" id="inputPassword" (focusout)="resetFocus()" (focus)="handleChangePassword()" type="password" class="input">
             	   </div>
             	</div>
-            	<a href="#" style="text-align: center; justify-content: center;align-items: center; color: blue; margin-bottom: 10px;">Đăng ký tài khoản mới?</a>
+              <div *ngIf="isRegister" id="password" class="input-div pass">
+                <div class="i"> 
+                   <i class="fas fa-lock"></i>
+                </div>
+                <div class="div">
+                   <h5>Mật khẩu </h5>
+                   <input formControlName="password" id="inputPassword" (focusout)="resetFocus()" (focus)="handleChangePassword()" type="password" class="input">
+               </div>
+            </div>
+            	<a type="button" href="http://localhost:4201/sign-up" style="text-align: center; justify-content: center;align-items: center; color: blue; margin-bottom: 10px;">Đăng ký tài khoản mới?</a>
               <a href="#">Bạn đã quên mật khẩu?</a>
             	<button type="submit" class="btn" value="Login">
                 Đăng nhập
@@ -49,5 +59,7 @@
             </form>
         </div>
     </div>
+    
+  </div>
 </body>
 </html>

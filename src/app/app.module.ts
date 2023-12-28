@@ -26,17 +26,20 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
+
 import {
   MenuFoldOutline,
   MenuUnfoldOutline
 } from '@ant-design/icons-angular/icons';
+import { SignUpComponent } from './sign-up/sign-up.component';
 registerLocaleData(vi);
 
 @NgModule({
   declarations: [
     AppComponent,
     DashboardComponent,
-    LoginComponent
+    LoginComponent,
+    SignUpComponent
   ],
   imports: [
     BrowserModule,

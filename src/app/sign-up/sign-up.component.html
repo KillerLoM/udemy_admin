@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://kit.fontawesome.com/a81368914c.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.15.4/css/solid.css"
+      integrity="sha384-Tv5i09RULyHKMwX0E8wJUqSOaXlyu3SQxORObAI08iUwIalMmN5L6AvlPX2LMoSE"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.15.4/css/fontawesome.css"
+      integrity="sha384-jLKHWM3JRmfMU0A5x5AkjWkw/EYfGUAGagvnfryNV3F9VqM98XiIH7VBGVoxVSc7"
+      crossorigin="anonymous"
+    />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div>
+      <img class="wave" src="../../assets/wave.png" />
+      <div class="container">
+        <div class="img">
+          <h2 class="title">FEDUCATION CHO GIÁO VIÊN</h2>
+          <img src="../../assets/teaching.svg" />
+        </div>
+        <div class="login-content">
+          <form
+            action="index.html"
+            (ngSubmit)="handleSignUp()"
+            [formGroup]="validateForm"
+          >
+            <img src="../../assets/account.svg" />
+            <h2 class="head-title" style="margin-bottom: 30px;">Đăng Ký</h2>
+            <div id="name" class="input-div one">
+              <div class="i">
+                <i class="fa fa-user"></i>
+              </div>
+              <div class="div">
+                <h5>Tên đầy đủ của bạn</h5>
+                <input
+                  formControlName="name"
+                  id="inputName"
+                  (focusout)="resetFocus()"
+                  (focus)="handleChangeName()"
+                  type="text"
+                  class="input"
+                />
+              </div>
+            </div>
+            <div id="email" class="input-div one">
+              <div class="i">
+                <i class="fa fa-user"></i>
+              </div>
+              <div class="div">
+                <h5>Tài khoản email</h5>
+                <input
+                  formControlName="userName"
+                  id="inputEmail"
+                  (focusout)="resetFocus()"
+                  (focus)="handleChangeEmail()"
+                  type="text"
+                  class="input"
+                />
+              </div>
+            </div>
+            <div id="password" class="input-div pass">
+              <div class="i">
+                <i class="fas fa-lock"></i>
+              </div>
+              <div class="div">
+                <h5>Mật khẩu</h5>
+                <input
+                  formControlName="password"
+                  id="inputPassword"
+                  (focusout)="resetFocus()"
+                  (focus)="handleChangePassword()"
+                  type="password"
+                  class="input"
+                />
+              </div>
+            </div>
+            <div id="confirm" class="input-div pass">
+              <div class="i">
+                <i class="fas fa-lock"></i>
+              </div>
+              <div class="div">
+                <h5>Nhập lại mật khẩu</h5>
+                <input
+                  formControlName="confirmpass"
+                  id="confirmPass"
+                  (focusout)="resetFocus()"
+                  (focus)="handleChangeConfirm()"
+                  type="password"
+                  class="input"
+                />
+              </div>
+            </div>
+            <a
+              type="button"
+              href="http://localhost:4201/login"
+              style="
+                text-align: center;
+                justify-content: center;
+                align-items: center;
+                color: blue;
+                margin-bottom: 10px;
+              "
+              >Quay về trang đăng nhập?</a
+            >
+            <span
+              style="
+                font-style: italic;
+                font-size: 15px;
+                color: red;
+                font-weight: 800px;
+              "
+            >
+              Một khi bấm vào nút đăng ký thì bạn cũng sẽ đồng ý với các Điều
+              khoản và Chính sách của chúng tôi
+            </span>
+            <button type="submit" class="btn" value="Login">Đăng Ký</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
