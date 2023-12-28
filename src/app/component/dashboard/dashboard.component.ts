@@ -6,10 +6,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent {
-  isTime = false;
-  isTrip = false;
+  isAdd = false;
+  isGet = false;
   isList = false;
-  isBusType = false;
+  isEdit = false;
   isOn = false;
   show = '';
   Type = '';
@@ -24,7 +24,7 @@ export class DashboardComponent {
   constructor(){
     this.iconList = 'chevron_right';
     this.Type = " Chào mừng admin đã đến với trang web quản lý nhà xe. Chúc anh chị có ngày làm việc tốt lành ";
-    if(!this.isTime && !this.isTrip){
+    if(!this.isAdd && !this.isGet){
       setInterval(() => {
         this.updateTime();
       })
@@ -36,7 +36,7 @@ export class DashboardComponent {
       this.mins = (currentTime.getMinutes() < 10 ?"0":"") + currentTime.getMinutes();
       this.sec = (currentTime.getSeconds() < 10 ?"0":"") + currentTime.getSeconds();
   }
-  HandleNews(element: any){
+  HandleAccount(element: any){
     const element1 = element;
     console.log(element1);
     if(this.active?.className != undefined){
@@ -53,7 +53,6 @@ export class DashboardComponent {
     }
    
     this.active?.classList.add('active');
-    console.log(this.active?.className);
     if(this.active?.className == 'menu-news active'){
       this.reset();
       this.isCertificate = true;
@@ -73,23 +72,23 @@ export class DashboardComponent {
    
     console.log(this.active?.className);
   }
-  timeInput(){
+  addCourses(){
     this.reset();
-    this.isTime = true;
+    this.isAdd = true;
     this.isOn = true;
-    document.getElementById("time")?.setAttribute("style","font-weight : bold;");
+    document.getElementById("addCourse")?.setAttribute("style","font-weight : bold;");
   }
-  tripInput(){
+  getReview(){
     this.reset();
-    this.isTrip = true;    
+    this.isGet = true;    
     this.isOn = true;
-    document.getElementById("trip")?.setAttribute("style","font-weight : bold;");
+    document.getElementById("review")?.setAttribute("style","font-weight : bold;");
   }
-  busInput(){
+  editCourses(){
     this.reset();
-    this.isBusType = true;
+    this.isEdit = true;
     this.isOn = true;
-    document.getElementById("bus")?.setAttribute("style","font-weight : bold;");
+    document.getElementById("edit")?.setAttribute("style","font-weight : bold;");
   }
   list(){
     this.reset();
@@ -98,14 +97,14 @@ export class DashboardComponent {
     document.getElementById("list")?.setAttribute("style","font-weight : bold;");
   }
   reset(){
-    this.isTime = false;
-    this.isTrip = false;
+    this.isAdd = false;
+    this.isGet = false;
     this.isCertificate = false;
-    this.isBusType = false;
+    this.isEdit = false;
     this.isList = false;
-    document.getElementById("time")?.setAttribute("style","font-weight : normal;");  
-    document.getElementById("trip")?.setAttribute("style","font-weight : normal;");
-    document.getElementById("bus")?.setAttribute("style","font-weight : normal;");
+    document.getElementById("addCourse")?.setAttribute("style","font-weight : normal;");  
+    document.getElementById("review")?.setAttribute("style","font-weight : normal;");
+    document.getElementById("edit")?.setAttribute("style","font-weight : normal;");
     document.getElementById("list")?.setAttribute("style","font-weight : normal;");
   }
   public HandleEvent($event: any) : void{

@@ -34,6 +34,7 @@ import {
 } from '@ant-design/icons-angular/icons';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { InterceptorRequestService } from './Service/intercep/interceptor-request.service';
+import { AddCoursesComponent } from './component/add-courses/add-courses.component';
 registerLocaleData(vi);
 
 @NgModule({
@@ -41,7 +42,8 @@ registerLocaleData(vi);
     AppComponent,
     DashboardComponent,
     LoginComponent,
-    SignUpComponent
+    SignUpComponent,
+    AddCoursesComponent
   ],
   imports: [
     BrowserModule,

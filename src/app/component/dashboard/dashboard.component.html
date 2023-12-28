@@ -51,19 +51,19 @@
                 fill="#fff"
               />
             </svg>
-            <span class="list">Quản lý nhà xe</span>
+            <span class="list">Quản lý khóa học của bạn</span>
             <span class="material-symbols-outlined">
               {{ iconList }}
             </span>
           </section>
           <ul *ngIf="!hide" class="menu-item-list">
-            <li id="time" class="menu-item" (click)="timeInput()">
-              Thời gian
+            <li id="addCourse" class="menu-item" (click)="addCourses()">
+              Tạo khóa học
 
               <div class="active-spot"></div>
             </li>
-            <li id="trip" (click)="tripInput()" class="menu-item">Chuyến</li>
-            <li id="bus" (click)="busInput()" class="menu-item">Loại xe</li>
+            <li id="review" (click)="getReview()" class="menu-item">Xem review </li>
+            <li id="edit" (click)="editCourses()" class="menu-item">Chỉnh sửa khóa học</li>
           </ul>
           
         </div>
@@ -71,7 +71,7 @@
           type="button"
           class="menu-certi"
           id="certificate"
-          (click)="HandleNews($event)"
+          (click)="HandleAccount($event)"
         >
           <svg
             width="24"
@@ -90,13 +90,13 @@
               fill="#22493B"
             />
           </svg>
-          <span class="certi">Quản lý hành khách</span>
+          <span class="certi">Quản lý tài khoản</span>
         </div>
         <div
           type="button"
-          class="menu-news"
-          id="menu-news-id"
-          (click)="HandleNews($event)"
+          class="menu-account"
+          id="menu-account-id"
+          (click)="HandleAccount($event)"
         >
           <svg
             width="24"
@@ -158,6 +158,7 @@
             {{ Type }}
           </h1>
         </div>
+        <app-add-courses *ngIf="isAdd"></app-add-courses>
         <!-- <app-ginseng-management *ngIf="isGinseng" (data)="HandleEvent($event)"></app-ginseng-management>
              <app-wine-management *ngIf="isWine" (data)="HandleEvent($event)"></app-wine-management> -->
         <!-- <app-certificate-management *ngIf="isCertificate" (data)="HandleEvent($event)"></app-certificate-management>  -->

@@ -1,4 +1,4 @@
-$main-height: 40px;
+$main-height: 80px;
 $main-width: 1250px;
 @mixin properties{
     flex-grow: 0;
@@ -18,7 +18,7 @@ $main-width: 1250px;
     text-align: center;
 }
 @mixin init_menu{
-    height: 40px;
+    height: 80px;
     align-self: stretch;
     flex-grow: 0;
     display: flex;
@@ -88,10 +88,7 @@ body{
 .menu-certi{
     @include init_menu;
 }
-.menu-location{
-    @include init_menu;
-}
-.menu-news{
+.menu-account{
     @include init_menu;
 }
 .menu-list{
@@ -127,7 +124,7 @@ body{
 }
 
 .Frame-1858 {
-    width: 18%;
+    width: 27%;
     height: 100vh;
     display: flex;
     flex-direction: column;
@@ -235,7 +232,7 @@ body{
     }
 }
 .active-menu {
-    width: 238px ;
+    width: 252px ;
     height: 209px ;
     gap: 8px;
     padding: 8px;
