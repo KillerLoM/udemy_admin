@@ -35,6 +35,7 @@ import {
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { InterceptorRequestService } from './Service/intercep/interceptor-request.service';
 import { AddCoursesComponent } from './component/add-courses/add-courses.component';
+import {MatStepperModule} from '@angular/material/stepper';
 registerLocaleData(vi);
 
 @NgModule({
@@ -55,6 +56,7 @@ registerLocaleData(vi);
     BrowserAnimationsModule,
     ReactiveFormsModule,
     NzBreadCrumbModule,
+    MatStepperModule,
     NzInputModule,
     NzFormModule,
     MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule
