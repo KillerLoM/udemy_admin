@@ -26,7 +26,9 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
+import { NzDividerModule } from 'ng-zorro-antd/divider';
 
 import {
   MenuFoldOutline,
@@ -36,6 +38,7 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 import { InterceptorRequestService } from './Service/intercep/interceptor-request.service';
 import { AddCoursesComponent } from './component/add-courses/add-courses.component';
 import {MatStepperModule} from '@angular/material/stepper';
+import { NzUploadModule } from 'ng-zorro-antd/upload';
 registerLocaleData(vi);
 
 @NgModule({
@@ -54,9 +57,12 @@ registerLocaleData(vi);
     NzLayoutModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    NzSelectModule,
     ReactiveFormsModule,
+    NzDividerModule,
     NzBreadCrumbModule,
     MatStepperModule,
+    NzUploadModule,
     NzInputModule,
     NzFormModule,
     MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule

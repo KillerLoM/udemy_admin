@@ -11,4 +11,10 @@ export class AppService {
    getUrlAuth(){
     return this.url +'/auth/';
    }
-}
+   getUrlCourses(){
+    return this.url +'/courses';
+   }
+   getUrlProfile(){
+    return this.url +'/profile/me';
+   }
+  }

@@ -18,7 +18,6 @@ export class InterceptorRequestService implements HttpInterceptor{
       if(localStorage.getItem('token') != null){
         const token = localStorage.getItem("token");
         let headers = new HttpHeaders().set('Authorization', 'Bearer ' + token)
-        .set("Content-Type", "application/json")
         .set("Access-Control-Allow-Origin", "*")
         .set('Access-Control-Allow-Methods', 'GET,POST,OPTIONS,DELETE,PUT');
           const AuthRequest = req.clone({ headers: headers , withCredentials: true});
