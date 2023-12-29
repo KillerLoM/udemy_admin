@@ -1,3 +1,8 @@
+*{
+  font-family: Lexend;
+  font-size: 18px;
+  overflow-x: hidden;
+}
 nz-select {
     width: 240px;
   }
@@ -17,4 +22,12 @@ nz-select {
     flex: 0 0 auto;
     padding: 8px;
     display: block;
+  }
+  textarea{
+    margin-bottom: 20px;
+    border: solid 1px #000;
+    
+  }
+  textarea::placeholder{
+    color: #000;
   }

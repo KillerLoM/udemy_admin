@@ -7,11 +7,11 @@
         <ng-template matStepLabel>Thông tin khóa học</ng-template>
         <mat-form-field>
           <mat-label>Tên khóa học</mat-label>
-          <input matInput placeholder="Last name, First name" formControlName="firstCtrl" required>
+          <input matInput placeholder="Nhập tên khóa học" formControlName="nameCtril" required>
         </mat-form-field>
         <mat-form-field style="margin-left: 20px;">
           <mat-label>Mô tả khóa học</mat-label>
-          <input matInput placeholder="Last name, First name" formControlName="firstCtrl" required>
+          <input matInput placeholder="Nhập mô tả khóa học" formControlName="titleCtril" required>
         </mat-form-field>
         <div>
           <button mat-button matStepperNext>Tiếp theo <svg xmlns="http://www.w3.org/2000/svg" height="16" width="14" viewBox="0 0 448 512"><path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"/></svg></button>
@@ -21,7 +21,8 @@
     <mat-step [stepControl]="secondFormGroup">
       <form [formGroup]="secondFormGroup" enctype="multipart/form-data">
         <ng-template matStepLabel>Thêm ảnh nền và mục tiêu</ng-template>
-        <div>
+        
+          <mat-label>Tải ảnh lên tại đây</mat-label>
           <nz-upload
           class="avatar-uploader"
           nzAction="http://localhost:9000/api/cloudinary/upload"
@@ -29,31 +30,37 @@
           nzName="file"
           nzListType="picture-card"
           [nzShowUploadList]="false"
-
           [nzHeaders]="{ 'Content-Type': 'application/json' }"
           (nzChange)="handleChange($event)"
           [nzHeaders]="{ 'Content-Type': 'multipart/form-data' }"
           nzUploadListType = "multipart/form-data"
-          enctype="multipart/form-data"
+          enctype="application/json"
         >
           <ng-container *ngIf="!avatarUrl">
             <span class="upload-icon" nz-icon [nzType]="loading ? 'loading' : 'plus'"></span>
-            <div class="ant-upload-text">Upload</div>
+            <div class="ant-upload-text">Tải lên</div>
           </ng-container>
           <img *ngIf="avatarUrl" [src]="avatarUrl" style="width: 100%" />
+
         </nz-upload>
-        </div>
+
         <div>
+          <mat-label>Nhập tối thiểu 4 mục tiêu của khóa học</mat-label>
+          <textarea nz-input placeholder="Autosize height based on content lines" nzAutosize style="resize: none"></textarea>
+          <textarea nz-input placeholder="Autosize height based on content lines" nzAutosize style="resize: none"></textarea>
+          <textarea nz-input placeholder="Autosize height based on content lines" nzAutosize style="resize: none"></textarea>
+          <button nz-button nzType="dashed" nzDanger (click)="handleAddinput()">Dashed</button>
           <button mat-button matStepperPrevious><svg xmlns="http://www.w3.org/2000/svg" height="16" width="14" viewBox="0 0 448 512"><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg> Quay lại </button>
           <button mat-button matStepperNext>Tiếp theo <svg xmlns="http://www.w3.org/2000/svg" height="16" width="14" viewBox="0 0 448 512"><path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"/></svg></button>
         </div>
       </form>
+
     </mat-step>
     <mat-step [stepControl]="thirdFormGroup">
       <form [formGroup]="thirdFormGroup">
         <ng-template matStepLabel>Chọn loại </ng-template>
         <div>
-          <nz-select matInput formControlName="thirdCtrl" nzShowSearch nzAllowClear [nzDropdownRender]="renderTemplate" nzPlaceHolder="Nhấp vào đây để tìm kiếm hoặc thêm mới">
+          <nz-select matInput formControlName="categoryCtril" nzShowSearch nzAllowClear [nzDropdownRender]="renderTemplate" nzPlaceHolder="Nhấp vào đây để tìm kiếm hoặc thêm mới">
             <nz-option *ngFor="let item of categoriesList" nzLabel="{{item.category}}" [nzValue]="item"></nz-option>
           </nz-select>
           <ng-template #renderTemplate>
@@ -82,4 +89,3 @@
       </div>
     </mat-step>
   </mat-stepper>
-  

@@ -39,6 +39,7 @@ import { InterceptorRequestService } from './Service/intercep/interceptor-reques
 import { AddCoursesComponent } from './component/add-courses/add-courses.component';
 import {MatStepperModule} from '@angular/material/stepper';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
+import { NzButtonModule } from 'ng-zorro-antd/button';
 registerLocaleData(vi);
 
 @NgModule({
@@ -59,6 +60,7 @@ registerLocaleData(vi);
     BrowserAnimationsModule,
     NzSelectModule,
     ReactiveFormsModule,
+    NzButtonModule,
     NzDividerModule,
     NzBreadCrumbModule,
     MatStepperModule,
