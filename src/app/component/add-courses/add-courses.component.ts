@@ -61,6 +61,11 @@ export class AddCoursesComponent implements OnInit {
   }
 
   handleChange(info: { file: NzUploadFile }): void {
+    this.getBase64(info.file!.originFileObj!, (img: string) => {
+      alert(img);
+      this.loading = false;
+      this.avatarUrl = img;
+    });
     switch (info.file.status) {
       case 'uploading':
         this.loading = true;
