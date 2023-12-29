@@ -7,10 +7,8 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class InterceptorRequestService implements HttpInterceptor{
-  route: any;
-
   constructor(
-    @Inject(Router) route: Router
+    @Inject(Router) private route: Router
   ) { }
   intercept(
     req: HttpRequest<any>,

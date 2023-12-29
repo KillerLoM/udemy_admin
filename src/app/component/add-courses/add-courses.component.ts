@@ -34,24 +34,6 @@ export class AddCoursesComponent implements OnInit {
      @Inject(UploadServiceService) private uploadService: UploadServiceService) {
     this.categoriesList = [];
   }
-  beforeUpload = (file: NzUploadFile, _fileList: NzUploadFile[]): Observable<boolean> =>
-    new Observable((observer: Observer<boolean>) => {
-      const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
-      if (!isJpgOrPng) {
-        this.msg.error('You can only upload JPG file!');
-        observer.complete();
-        return;
-      }
-      const isLt2M = file.size! / 1024 / 1024 < 2;
-      if (!isLt2M) {
-        this.msg.error('Image must smaller than 2MB!');
-        observer.complete();
-        return;
-      }
-      
-      observer.next(isJpgOrPng && isLt2M);
-      observer.complete();
-    });
 
   private getBase64(img: File, callback: (img: string) => void): void {
     const reader = new FileReader();
@@ -61,11 +43,6 @@ export class AddCoursesComponent implements OnInit {
   }
 
   handleChange(info: { file: NzUploadFile }): void {
-    this.getBase64(info.file!.originFileObj!, (img: string) => {
-      alert(img);
-      this.loading = false;
-      this.avatarUrl = img;
-    });
     switch (info.file.status) {
       case 'uploading':
         this.loading = true;
@@ -78,7 +55,11 @@ export class AddCoursesComponent implements OnInit {
         });
         break;
       case 'error':
+        
         this.msg.error(info.file.status);
+        console.log(info.file.error.error.text);
+        this.avatarUrl = info.file.error.error.text;
+        info.file.error.message;
         this.loading = false;
         break;
     }

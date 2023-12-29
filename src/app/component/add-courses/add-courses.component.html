@@ -29,7 +29,8 @@
           nzName="file"
           nzListType="picture-card"
           [nzShowUploadList]="false"
-          [nzBeforeUpload]="beforeUpload"
+
+          [nzHeaders]="{ 'Content-Type': 'application/json' }"
           (nzChange)="handleChange($event)"
           [nzHeaders]="{ 'Content-Type': 'multipart/form-data' }"
           nzUploadListType = "multipart/form-data"
