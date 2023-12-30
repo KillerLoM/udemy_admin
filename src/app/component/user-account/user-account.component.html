@@ -1,1 +1,13 @@
-<p>user-account works!</p>
+<div style="margin-top: 30px; margin-left: 10px;">
+    <form class="example-form" [formGroup]="userFormGroup" >
+        <div class="field">
+            <mat-form-field class="example-full-width">
+                <mat-label>Id của bạn</mat-label>
+                <input type="tel" matInput formControlName = "idUser" [value]="idUser" readonly="true">
+              </mat-form-field>
+        </div>
+
+    
+    </form>
+      
+</div>
