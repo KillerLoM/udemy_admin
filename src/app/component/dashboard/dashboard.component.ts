@@ -1,11 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { User } from 'src/app/Model/user';
+import { GenericResponse } from 'src/app/Response/generic-response';
+import { AuthServiceService } from 'src/app/Service/apiService/auth-service.service';
+import { ShareService } from 'src/app/Service/share.service';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit {
   isAdd = false;
   isGet = false;
   isList = false;
@@ -21,7 +26,9 @@ export class DashboardComponent {
   hours : any | null = 0;
   mins : any | null = 0;
   sec : any | null = 0;
-  constructor(){
+  constructor(    @Inject(Router) private route: Router,
+  @Inject(AuthServiceService) private authService: AuthServiceService,
+  private shareService: ShareService){
     this.iconList = 'chevron_right';
     this.Type = " Chào mừng admin đã đến với trang web quản lý nhà xe. Chúc anh chị có ngày làm việc tốt lành ";
     if(!this.isAdd && !this.isGet){
@@ -29,6 +36,10 @@ export class DashboardComponent {
         this.updateTime();
       })
     }
+    this.validateUser();
+  }
+  ngOnInit(): void {
+    
   }
   updateTime(){
       let currentTime = new Date();
@@ -112,6 +123,20 @@ export class DashboardComponent {
     this.Type  =  'Danh sách Sâm'
   }
   certificateInput(){
+
+  }
+  validateUser(){
+    this.authService.getInfoUser().subscribe((data: User) =>{
+      this.shareService.setIdUser(data.userDTO.id);
+      this.authService.validateToken().subscribe((data: GenericResponse) =>{
+      },
+      Error=>{
+        this.route.navigate(['login']);
+      })
+    },
+    Error => {
+      this.route.navigate(['login']);
+    })
 
   }
 }

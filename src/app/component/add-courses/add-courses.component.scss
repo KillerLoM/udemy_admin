@@ -31,3 +31,28 @@ nz-select {
   textarea::placeholder{
     color: #000;
   }
+  nz-select{
+    width : 500px;
+  }
+  mat-label{
+    padding: 10px 50px 10px 10px;
+    margin-bottom: 200px;
+  }
+  .btn-area{
+    margin-top: 20px;
+    line-height: 1.5;
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+  }
+  .example-container {
+    height: 570px;
+    overflow: auto;
+  }
+  
+  table {
+    width: 100%;
+  }
+  th, td{
+    margin-bottom: 20px;
+  }

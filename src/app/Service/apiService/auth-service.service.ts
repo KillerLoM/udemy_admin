@@ -2,9 +2,10 @@ import { Injectable } from '@angular/core';
 import { AppService } from '../app.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { LoginResponse } from 'src/app/Response/login-response';
-import { Observable } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { SignUpResponse } from 'src/app/Response/sign-up-response';
 import { User } from 'src/app/Model/user';
+import { GenericResponse } from 'src/app/Response/generic-response';
 
 @Injectable({
   providedIn: 'root'
@@ -31,5 +32,15 @@ export class AuthServiceService {
     this.url = this.appService.getUrlProfile();
     let headers = new HttpHeaders().set('Content-Type', 'application/json');
     return this.http.get<User>(`${this.url}`,{headers}).pipe();
+  }
+  validateToken(): Observable<GenericResponse> {
+    this.url = this.appService.getUrlAuth();
+    const token = localStorage.getItem('token');
+
+    if(token){
+      let obj = {token: token}
+      return this.http.post<GenericResponse>(`${this.url}validate-token`, obj).pipe();
+    }
+    return throwError({ success: false, message: "Lỗi: Token không tồn tại" });
   }
 }

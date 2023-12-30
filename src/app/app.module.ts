@@ -40,6 +40,9 @@ import { AddCoursesComponent } from './component/add-courses/add-courses.compone
 import {MatStepperModule} from '@angular/material/stepper';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
 import { NzButtonModule } from 'ng-zorro-antd/button';
+import {MatTableModule} from '@angular/material/table';
+import { NzModalModule } from 'ng-zorro-antd/modal';
+import { NzResultModule } from 'ng-zorro-antd/result';
 registerLocaleData(vi);
 
 @NgModule({
@@ -59,12 +62,14 @@ registerLocaleData(vi);
     HttpClientModule,
     BrowserAnimationsModule,
     NzSelectModule,
+    NzResultModule,
     ReactiveFormsModule,
     NzButtonModule,
     NzDividerModule,
     NzBreadCrumbModule,
     MatStepperModule,
-    NzUploadModule,
+    NzUploadModule,MatTableModule,
+    NzModalModule,
     NzInputModule,
     NzFormModule,
     MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule

@@ -1,67 +1,240 @@
-<button mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">
-    {{!isLinear ? 'Enable linear mode' : 'Disable linear mode'}}
-  </button>
-  <mat-stepper orientation="vertical" [linear]="isLinear" #stepper>
+<section *ngIf="isGetting" class="example-container mat-elevation-z8" tabindex="0" style="margin-top: 30px; margin-right: 20px; ">
+  <table mat-table [dataSource]="listCourses">
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef>ID</th>
+      <td mat-cell *matCellDef="let element">{{ element.id }}</td>
+    </ng-container>
+    <ng-container matColumnDef="title">
+      <th mat-header-cell *matHeaderCellDef>Tên khóa học</th>
+      <td mat-cell *matCellDef="let element">{{ element.title }}</td>
+    </ng-container>
+    <ng-container matColumnDef="subtitle">
+      <th mat-header-cell *matHeaderCellDef>Mô tả</th>
+      <td mat-cell *matCellDef="let element">{{ element.subtitle }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="category">
+      <th mat-header-cell *matHeaderCellDef>Loại</th>
+      <td mat-cell *matCellDef="let element">{{ element.category }}</td>
+    </ng-container>
+    <ng-container matColumnDef="price">
+      <th mat-header-cell *matHeaderCellDef>Gía</th>
+      <td mat-cell *matCellDef="let element">{{ element.price }}000 VNĐ</td>
+    </ng-container>
+    <ng-container matColumnDef="avatar">
+      <th mat-header-cell *matHeaderCellDef>Ảnh nền</th>
+      <td mat-cell *matCellDef="let element">
+        <img
+          style="width: 40px; height: auto"
+          src="{{ element.thumbUrl }}"
+          alt=""
+        />
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="rating">
+      <th mat-header-cell *matHeaderCellDef>Điểm</th>
+      <td mat-cell *matCellDef="let element">{{ element.rating }}</td>
+    </ng-container>
+    <ng-container matColumnDef="handle">
+      <th mat-header-cell *matHeaderCellDef>Thao tác</th>
+      <td mat-cell *matCellDef="let element">
+        <div class="d-flex flex-row mb-3" style="padding-top: 10px;">
+
+        <button nz-button  (click)="handleDelete( element.id)" type="button" class="btn p-2">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          height="20"
+          width="20"
+          viewBox="0 0 448 512"
+        >
+          <path
+            d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z"
+          />
+        </svg>
+      </button>
+      <button  (click)="handleEdit( element.id)" type="button" class="btn p-2">
+        <svg xmlns="http://www.w3.org/2000/svg" height="20" width="20" viewBox="0 0 512 512"><path d="M362.7 19.3L314.3 67.7 444.3 197.7l48.4-48.4c25-25 25-65.5 0-90.5L453.3 19.3c-25-25-65.5-25-90.5 0zm-71 71L58.6 323.5c-10.4 10.4-18 23.3-22.2 37.4L1 481.2C-1.5 489.7 .8 498.8 7 505s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L421.7 220.3 291.7 90.3z"/></svg>
+      </button> 
+      </div>
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+</section>
+<div *ngIf="isGetting" style="display: flex; justify-content: flex-end; align-items: flex-end; margin-right: 20px; margin-top: 50px;">
+  <button nz-button nzType="default" nzDanger (click)="addInit()">Tạo khóa học mới </button>
+</div>
+
+<section style="margin-top: 20px" *ngIf="isAdding && !isFinish">
+  <mat-stepper
+    style="background-color: #e2f1ef"
+    orientation="horizontal"
+    [linear]="!isLinear"
+    #stepper
+  >
     <mat-step [stepControl]="firstFormGroup">
-      <form [formGroup]="firstFormGroup">
+      <form style="margin-top: 20px" [formGroup]="firstFormGroup">
         <ng-template matStepLabel>Thông tin khóa học</ng-template>
-        <mat-form-field>
+        <div style="margin-bottom: 20px">
           <mat-label>Tên khóa học</mat-label>
-          <input matInput placeholder="Nhập tên khóa học" formControlName="nameCtril" required>
-        </mat-form-field>
-        <mat-form-field style="margin-left: 20px;">
-          <mat-label>Mô tả khóa học</mat-label>
-          <input matInput placeholder="Nhập mô tả khóa học" formControlName="titleCtril" required>
-        </mat-form-field>
-        <div>
-          <button mat-button matStepperNext>Tiếp theo <svg xmlns="http://www.w3.org/2000/svg" height="16" width="14" viewBox="0 0 448 512"><path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"/></svg></button>
+          <input
+            formControlName="nameCtril"
+            matInput
+            required
+            nz-input
+            placeholder="Ví dụ: Khóa học lập trình Java cơ bản"
+            nzSize="large"
+          />
+        </div>
+        <mat-label>Mô tả khóa học</mat-label>
+        <input
+          formControlName="titleCtril"
+          matInput
+          required
+          nz-input
+          placeholder="Ví dụ: Khóa học cung cấp cho bạn kiến thức toàn diện về lập trình java"
+          nzSize="large"
+        />
+        <div style="margin-top: 30px">
+          <button mat-button matStepperNext>
+            Tiếp theo
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              height="16"
+              width="14"
+              viewBox="0 0 448 512"
+            >
+              <path
+                d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"
+              />
+            </svg>
+          </button>
         </div>
       </form>
     </mat-step>
     <mat-step [stepControl]="secondFormGroup">
-      <form [formGroup]="secondFormGroup" enctype="multipart/form-data">
+      <form
+        style="margin-top: 20px"
+        [formGroup]="secondFormGroup"
+        enctype="multipart/form-data"
+      >
         <ng-template matStepLabel>Thêm ảnh nền và mục tiêu</ng-template>
-        
-          <mat-label>Tải ảnh lên tại đây</mat-label>
-          <nz-upload
+
+        <mat-label>Tải ảnh lên tại đây</mat-label>
+        <nz-upload
           class="avatar-uploader"
           nzAction="http://localhost:9000/api/cloudinary/upload"
-          
           nzName="file"
           nzListType="picture-card"
           [nzShowUploadList]="false"
           [nzHeaders]="{ 'Content-Type': 'application/json' }"
           (nzChange)="handleChange($event)"
           [nzHeaders]="{ 'Content-Type': 'multipart/form-data' }"
-          nzUploadListType = "multipart/form-data"
+          nzUploadListType="multipart/form-data"
           enctype="application/json"
         >
           <ng-container *ngIf="!avatarUrl">
-            <span class="upload-icon" nz-icon [nzType]="loading ? 'loading' : 'plus'"></span>
+            <span
+              class="upload-icon"
+              nz-icon
+              [nzType]="loading ? 'loading' : 'plus'"
+            ></span>
             <div class="ant-upload-text">Tải lên</div>
           </ng-container>
           <img *ngIf="avatarUrl" [src]="avatarUrl" style="width: 100%" />
-
         </nz-upload>
 
         <div>
           <mat-label>Nhập tối thiểu 4 mục tiêu của khóa học</mat-label>
-          <textarea nz-input placeholder="Autosize height based on content lines" nzAutosize style="resize: none"></textarea>
-          <textarea nz-input placeholder="Autosize height based on content lines" nzAutosize style="resize: none"></textarea>
-          <textarea nz-input placeholder="Autosize height based on content lines" nzAutosize style="resize: none"></textarea>
-          <button nz-button nzType="dashed" nzDanger (click)="handleAddinput()">Dashed</button>
-          <button mat-button matStepperPrevious><svg xmlns="http://www.w3.org/2000/svg" height="16" width="14" viewBox="0 0 448 512"><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg> Quay lại </button>
-          <button mat-button matStepperNext>Tiếp theo <svg xmlns="http://www.w3.org/2000/svg" height="16" width="14" viewBox="0 0 448 512"><path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"/></svg></button>
+
+          <textarea
+            matInput
+            formControlName="objectCtril1"
+            nz-input
+            placeholder="Ví dụ: Trang bị kiến thức để sẵn sàng chinh chiến"
+            nzAutosize
+            style="resize: none"
+          ></textarea>
+
+          <textarea
+            matInput
+            formControlName="objectCtril2"
+            nz-input
+            placeholder="Ví dụ: Trang bị kiến thức để sẵn sàng chinh chiến"
+            nzAutosize
+            style="resize: none"
+          ></textarea>
+
+          <textarea
+            matInput
+            formControlName="objectCtril3"
+            nz-input
+            placeholder="Ví dụ: Trang bị kiến thức để sẵn sàng chinh chiến"
+            nzAutosize
+            style="resize: none"
+          ></textarea>
+
+          <textarea
+            matInput
+            formControlName="objectCtril4"
+            nz-input
+            placeholder="Ví dụ: Trang bị kiến thức để sẵn sàng chinh chiến"
+            nzAutosize
+            style="resize: none"
+          ></textarea>
+
+          <button nz-button nzType="dashed" nzDanger>Dashed</button>
+          <div class="btn-area">
+            <button mat-button matStepperPrevious>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                height="16"
+                width="14"
+                viewBox="0 0 448 512"
+              >
+                <path
+                  d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"
+                />
+              </svg>
+              Quay lại
+            </button>
+            <button mat-button matStepperNext>
+              Tiếp theo
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                height="16"
+                width="14"
+                viewBox="0 0 448 512"
+              >
+                <path
+                  d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"
+                />
+              </svg>
+            </button>
+          </div>
         </div>
       </form>
-
     </mat-step>
     <mat-step [stepControl]="thirdFormGroup">
-      <form [formGroup]="thirdFormGroup">
-        <ng-template matStepLabel>Chọn loại </ng-template>
+      <form style="margin-top: 20px" [formGroup]="thirdFormGroup">
+        <ng-template matStepLabel>Loại và giá</ng-template>
+        <mat-label>Chọn Loại khóa học</mat-label>
         <div>
-          <nz-select matInput formControlName="categoryCtril" nzShowSearch nzAllowClear [nzDropdownRender]="renderTemplate" nzPlaceHolder="Nhấp vào đây để tìm kiếm hoặc thêm mới">
-            <nz-option *ngFor="let item of categoriesList" nzLabel="{{item.category}}" [nzValue]="item"></nz-option>
+          <nz-select
+            matInput
+            formControlName="categoryCtril"
+            nzShowSearch
+            id ="categoryInput"
+            [nzAllowClear]="true"
+            [nzDropdownRender]="renderTemplate"
+            nzPlaceHolder="Nhấp vào đây để tìm kiếm hoặc thêm mới"
+          >
+            <nz-option
+              *ngFor="let item of listOfItem"
+              nzLabel="{{ item }}"
+              [nzValue]="item"
+            ></nz-option>
           </nz-select>
           <ng-template #renderTemplate>
             <nz-divider></nz-divider>
@@ -74,18 +247,120 @@
             </div>
           </ng-template>
         </div>
+        <mat-label>Nhập giá khóa học</mat-label>
+        <div style="margin-top: -50px">
+          <ng-template #suffixTemplateInfo>
+            <span
+              nz-icon
+              nz-tooltip
+              nzTooltipTitle="Extra information"
+              nzType="info-circle"
+            ></span>
+          </ng-template>
+          <br />
+          <br />
+          <nz-input-group
+            nzSuffix="000 ₫"
+            style="width: 500px"
+            pattern="[0-9]*"
+            title="Nhập giá tiền là số. Nếu miễn phí nhập 0"
+            nzPrefix=" VND"
+          >
+            <input
+              #inputElement
+              type="text"
+              nz-input
+              id="inputMoney"
+              [ngModel]="value"
+              formControlName="priceCtril"
+              (ngModelChange)="onChange($event)"
+              placeholder="Nhập giá tiền là số. Nếu miễn phí nhập 0"
+              (blur)="onBlur()"
+              nzOverlayClassName="numeric-input"
+            />
+          </nz-input-group>
+        </div>
         <div>
-          <button mat-button matStepperPrevious><svg xmlns="http://www.w3.org/2000/svg" height="16" width="14" viewBox="0 0 448 512"><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg> Quay lại </button>
-          <button mat-button matStepperNext>Tiếp theo <svg xmlns="http://www.w3.org/2000/svg" height="16" width="14" viewBox="0 0 448 512"><path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"/></svg></button>
+          <div class="btn-area">
+            <button mat-button matStepperPrevious>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                height="16"
+                width="14"
+                viewBox="0 0 448 512"
+              >
+                <path
+                  d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"
+                />
+              </svg>
+              Quay lại
+            </button>
+            <button mat-button matStepperNext>
+              Tiếp theo
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                height="16"
+                width="14"
+                viewBox="0 0 448 512"
+              >
+                <path
+                  d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"
+                />
+              </svg>
+            </button>
+          </div>
         </div>
       </form>
     </mat-step>
     <mat-step>
-      <ng-template matStepLabel>Done</ng-template>
-      <p>You are now done.</p>
-      <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button (click)="stepper.reset()">Reset</button>
+      <ng-template matStepLabel>Hoàn tất</ng-template>
+      <div style="margin-top: 40px">
+        <p>Bạn xác nhận tạo khóa học chứ ?</p>
+        <div class="btn-area">
+          <button class="btn" mat-button matStepperPrevious>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              height="16"
+              width="14"
+              viewBox="0 0 448 512"
+            >
+              <path
+                d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"
+              />
+            </svg>
+            Quay lại
+          </button>
+          <button class="btn btn-success" mat-button (click)="handleSend()">
+            Hoàn tất
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              height="16"
+              width="14"
+              viewBox="0 0 448 512"
+            >
+              <path
+                d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"
+              />
+            </svg>
+          </button>
+        </div>
       </div>
     </mat-step>
+    <button id="resetStep" mat-button (click)="stepper.reset()" hidden>Reset</button>
   </mat-stepper>
+</section>
+<div *ngIf="isAdding && !isFinish" style="display: flex; justify-content: flex-end; align-items: flex-end; margin-right: 20px; margin-top: 50px;">
+  <button nz-button nzType="default" nzDanger (click)="quit()">Quay lại </button>
+</div>
+<div *ngIf="isFinish">
+<nz-result
+nzStatus="success"
+nzTitle="{{showMessageTitle}}"
+nzSubTitle="{{showMesageSubtitle}}" 
+>
+<div nz-result-extra>
+  <button (click)="comeback()" nz-button nzType="primary">Trở về trang xem khóa học</button>
+  <button (click)="addMoreCourses()"  nz-button>{{nextInstructions}}</button>
+</div>
+</nz-result>
+</div>

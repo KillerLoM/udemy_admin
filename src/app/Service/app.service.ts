@@ -17,4 +17,7 @@ export class AppService {
    getUrlProfile(){
     return this.url +'/profile/me';
    }
+   getUrlObjectives(){
+    return this.url +'/objectives/';
+   }
   }
