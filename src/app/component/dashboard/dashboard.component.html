@@ -58,19 +58,19 @@
           </section>
           <ul *ngIf="!hide" class="menu-item-list">
             <li id="addCourse" class="menu-item" (click)="addCourses()">
-              Tạo khóa học
+              Quản lý chung
 
               <div class="active-spot"></div>
             </li>
             <li id="review" (click)="getReview()" class="menu-item">Xem review </li>
-            <li id="edit" (click)="editCourses()" class="menu-item">Chỉnh sửa khóa học</li>
+            <li id="edit" (click)="editCourses()" class="menu-item">Quản lý các bài học</li>
           </ul>
           
         </div>
         <div
           type="button"
-          class="menu-certi"
-          id="certificate"
+          class="menu-account"
+          id="menu-account-id"
           (click)="HandleAccount($event)"
         >
           <svg
@@ -94,8 +94,7 @@
         </div>
         <div
           type="button"
-          class="menu-account"
-          id="menu-account-id"
+
           (click)="HandleAccount($event)"
         >
           <svg
@@ -159,6 +158,7 @@
           </h1>
         </div>
         <app-add-courses *ngIf="isAdd"></app-add-courses>
+        <app-user-account *ngIf="isAccount"></app-user-account>
         <!-- <app-ginseng-management *ngIf="isGinseng" (data)="HandleEvent($event)"></app-ginseng-management>
              <app-wine-management *ngIf="isWine" (data)="HandleEvent($event)"></app-wine-management> -->
         <!-- <app-certificate-management *ngIf="isCertificate" (data)="HandleEvent($event)"></app-certificate-management>  -->

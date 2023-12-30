@@ -43,6 +43,7 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import {MatTableModule} from '@angular/material/table';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzResultModule } from 'ng-zorro-antd/result';
+import { UserAccountComponent } from './component/user-account/user-account.component';
 registerLocaleData(vi);
 
 @NgModule({
@@ -51,7 +52,8 @@ registerLocaleData(vi);
     DashboardComponent,
     LoginComponent,
     SignUpComponent,
-    AddCoursesComponent
+    AddCoursesComponent,
+    UserAccountComponent
   ],
   imports: [
     BrowserModule,

@@ -13,6 +13,7 @@ import { ShareService } from 'src/app/Service/share.service';
 export class DashboardComponent implements OnInit {
   isAdd = false;
   isGet = false;
+  isAccount = false;
   isList = false;
   isEdit = false;
   isOn = false;
@@ -64,12 +65,10 @@ export class DashboardComponent implements OnInit {
     }
    
     this.active?.classList.add('active');
-    if(this.active?.className == 'menu-news active'){
+    if(this.active?.className == 'menu-account active'){
       this.reset();
-      this.isCertificate = true;
+      this.isAccount = true;
       this.isOn = true;
-      this.isList = true;
-      this.list();
     }
   }
   HandleList(element: any){
@@ -110,7 +109,7 @@ export class DashboardComponent implements OnInit {
   reset(){
     this.isAdd = false;
     this.isGet = false;
-    this.isCertificate = false;
+    this.isAccount = false;
     this.isEdit = false;
     this.isList = false;
     document.getElementById("addCourse")?.setAttribute("style","font-weight : normal;");  
@@ -128,6 +127,7 @@ export class DashboardComponent implements OnInit {
   validateUser(){
     this.authService.getInfoUser().subscribe((data: User) =>{
       this.shareService.setIdUser(data.userDTO.id);
+      this.shareService.setUser(data);
       this.authService.validateToken().subscribe((data: GenericResponse) =>{
       },
       Error=>{
