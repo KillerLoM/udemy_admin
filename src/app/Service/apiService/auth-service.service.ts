@@ -43,4 +43,9 @@ export class AuthServiceService {
     }
     return throwError({ success: false, message: "Lỗi: Token không tồn tại" });
   }
+  updateUser(id: number, fullname: string, email: string, createdAt: Date) : Observable<User> {
+    let obj = {id: id, fullname:fullname, email:email, created:createdAt};
+    this.url = this.appService.getUrlProfile();
+    return this.http.put<User>(`${this.url}`, obj).pipe();
+  }
 }

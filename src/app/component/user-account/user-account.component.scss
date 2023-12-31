@@ -1,3 +1,24 @@
 .field{
     margin-bottom: 10px;
 }
+.circle {
+    width: 250px; 
+    height: 250px; 
+    background-color: #000; 
+    border-radius: 50%; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff; 
+    font-size: 159px; 
+    font-weight: bold; 
+}
+.user-account{
+    margin-top: 60px;
+}
+.heading{
+    font-weight: 900;
+    font-size: 20px;
+    color: #22493b;
+    font-family: Lexend;
+}

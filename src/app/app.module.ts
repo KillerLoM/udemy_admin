@@ -12,7 +12,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NZ_I18N } from 'ng-zorro-antd/i18n';
 import { vi_VN } from 'ng-zorro-antd/i18n';
-import { registerLocaleData } from '@angular/common';
+import { DatePipe, registerLocaleData } from '@angular/common';
 import vi from '@angular/common/locales/vi';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -29,6 +29,8 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { CommonModule } from '@angular/common';
 
 import {
   MenuFoldOutline,
@@ -44,6 +46,7 @@ import {MatTableModule} from '@angular/material/table';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzResultModule } from 'ng-zorro-antd/result';
 import { UserAccountComponent } from './component/user-account/user-account.component';
+import { NzGridModule } from 'ng-zorro-antd/grid';
 registerLocaleData(vi);
 
 @NgModule({
@@ -69,14 +72,17 @@ registerLocaleData(vi);
     NzButtonModule,
     NzDividerModule,
     NzBreadCrumbModule,
+    CommonModule,
     MatStepperModule,
     NzUploadModule,MatTableModule,
     NzModalModule,
     NzInputModule,
+    NzGridModule,
     NzFormModule,
     MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule
   ],
   providers: [
+    DatePipe, { provide: MAT_DATE_LOCALE, useValue: 'vi-VN' },
     { provide: NZ_I18N, useValue: vi_VN },
     {
       provide: HTTP_INTERCEPTORS,
