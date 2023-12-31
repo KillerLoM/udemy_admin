@@ -1,0 +1,103 @@
+@import url("../../../app/app.component.scss");
+@mixin center_display(){
+    text-align: center;
+    justify-content: center ;
+    align-items: center ;
+  }
+.steps-content {
+  border-radius: 6px;
+  min-height: 200px;
+  margin-top: 36px;
+  background-color: #e2f1ef;
+  margin-right: 20px;
+  @include center_display();
+}
+
+.steps-action {
+  margin-top: 10px;
+}
+
+button {
+  margin-right: 8px;
+}
+.example-container {
+  height: 400px;
+  overflow: auto;
+}
+
+table {
+  width: 100%;
+  border-bottom: solid 2px black;
+}
+.example-container {
+  height: 550px;
+  border-bottom:  solid 2px black;
+  overflow: auto;
+  background-color: #e2f1ef;
+}
+.ant-steps {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    color: rgba(0, 0, 0, 0.85);
+    font-size: 14px;
+    font-variant: tabular-nums;
+    line-height: 1.5715;
+    list-style: none;
+    font-feature-settings: 'tnum';
+    display: flex;
+    width: 98%;
+    font-size: 0;
+    text-align: initial;
+    margin-top: 15px;
+  }
+  .demo-table {
+    width: 100%;
+  }
+  
+  .mat-mdc-row .mat-mdc-cell {
+    border-bottom: 1px solid transparent;
+    border-top: 1px solid transparent;
+    cursor: pointer;
+  }
+  
+  .mat-mdc-row:hover .mat-mdc-cell {
+    border-color: currentColor;
+    color:red;
+    font-size: 20px;
+    font-weight: 800;
+  }
+  .mat-mdc-row:hover.mat-column-avatar{
+    height: 120px;
+    width: 120px;
+  }
+   .mat-mdc-row:hover .mat-mdc-cell .imageCourse {
+        width: 100px;
+        height: 100px;
+   }
+  .demo-row-is-clicked {
+    font-weight: bold;
+  }
+  .imageCourse{
+    width: 73px;
+    height: 49px;
+  }
+
+  .mat-column-id {
+    width: 5px;
+    text-align: center;
+    height: 50px;
+  }
+  .mat-column-avatar{
+    align-items: center !important;
+    height: 80px;
+  }
+  .mat-column-title{
+    @include center_display();
+  }
+  .mat-column-subtitle{
+    @include center_display();
+  }
+  table{
+    background-color: #e2f1ef;
+  }

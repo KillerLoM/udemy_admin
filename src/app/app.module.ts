@@ -29,6 +29,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
+import { NzStepsModule } from 'ng-zorro-antd/steps';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { CommonModule } from '@angular/common';
 
@@ -47,6 +48,10 @@ import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzResultModule } from 'ng-zorro-antd/result';
 import { UserAccountComponent } from './component/user-account/user-account.component';
 import { NzGridModule } from 'ng-zorro-antd/grid';
+import { LessonsComponent } from './component/lessons/lessons.component';
+import { NzEmptyModule } from 'ng-zorro-antd/empty';
+import { ChildLessonsComponent } from './component/lessons/child-lessons/child-lessons.component';
+import { NzTableModule } from 'ng-zorro-antd/table';
 registerLocaleData(vi);
 
 @NgModule({
@@ -56,7 +61,9 @@ registerLocaleData(vi);
     LoginComponent,
     SignUpComponent,
     AddCoursesComponent,
-    UserAccountComponent
+    UserAccountComponent,
+    LessonsComponent,
+    ChildLessonsComponent
   ],
   imports: [
     BrowserModule,
@@ -66,10 +73,13 @@ registerLocaleData(vi);
     NzLayoutModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    NzTableModule,
+    NzEmptyModule,
     NzSelectModule,
     NzResultModule,
     ReactiveFormsModule,
     NzButtonModule,
+    NzStepsModule,
     NzDividerModule,
     NzBreadCrumbModule,
     CommonModule,

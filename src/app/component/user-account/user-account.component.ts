@@ -3,7 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { User } from 'src/app/Model/user';
 import { ShareService } from 'src/app/Service/share.service';
 import { DatePipe } from '@angular/common';
-import { differenceInDays, differenceInHours, parseISO } from 'date-fns/esm';
+import { differenceInDays, differenceInHours, parseISO } from 'date-fns';
 import { AuthServiceService } from 'src/app/Service/apiService/auth-service.service';
 import { NzMessageService } from 'ng-zorro-antd/message';
 
@@ -56,6 +56,7 @@ export class UserAccountComponent implements OnInit {
         this.user = data;
         this.msg.success("Đã cập nhật thông tin tài khoản thành công");
         this.initValue();
+        this.shareService.setUser(data);
       }) 
     }
     

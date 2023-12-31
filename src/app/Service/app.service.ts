@@ -20,4 +20,7 @@ export class AppService {
    getUrlObjectives(){
     return this.url +'/objectives/';
    }
+   getUrlLessons(){
+    return this.url +'/lessons';
+   }
   }

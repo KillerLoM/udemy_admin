@@ -172,7 +172,7 @@ export class AddCoursesComponent implements OnInit, AfterViewInit {
         console.log(error);
       }
     );
-    this.getCourses();
+    this.listCourses = this.shareService.getCourses();
   }
   getCourses() {
     this.idUser = this.shareService.idUser;
@@ -180,6 +180,7 @@ export class AddCoursesComponent implements OnInit, AfterViewInit {
     if (this.idUser != null)
       this.courseService.getCourse(this.idUser).subscribe((data: any) => {
         this.listCourses = data;
+        this.shareService.setCourses(this.listCourses);
         console.log(this.listCourses);
       });
   }

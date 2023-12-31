@@ -1,4 +1,4 @@
-<section *ngIf="isGetting" class="example-container mat-elevation-z8" tabindex="0" style="margin-top: 30px; margin-right: 20px; ">
+<section *ngIf="isGetting" class="example-container mat-elevation-z8 " tabindex="0" style="margin-top: 30px; margin-right: 20px; ">
   <table mat-table [dataSource]="listCourses">
     <ng-container matColumnDef="id">
       <th mat-header-cell *matHeaderCellDef>ID</th>
@@ -17,9 +17,13 @@
       <th mat-header-cell *matHeaderCellDef>Loại</th>
       <td mat-cell *matCellDef="let element">{{ element.category }}</td>
     </ng-container>
+    <ng-container matColumnDef="rating">
+      <th mat-header-cell *matHeaderCellDef>Điểm</th>
+      <td mat-cell *matCellDef="let element">{{ element.rating }}</td>
+    </ng-container>
     <ng-container matColumnDef="price">
       <th mat-header-cell *matHeaderCellDef>Gía</th>
-      <td mat-cell *matCellDef="let element">{{ element.price }}000 VNĐ</td>
+      <td mat-cell *matCellDef="let element">{{ element.price }} nghìn</td>
     </ng-container>
     <ng-container matColumnDef="avatar">
       <th mat-header-cell *matHeaderCellDef>Ảnh nền</th>
@@ -31,10 +35,7 @@
         />
       </td>
     </ng-container>
-    <ng-container matColumnDef="rating">
-      <th mat-header-cell *matHeaderCellDef>Điểm</th>
-      <td mat-cell *matCellDef="let element">{{ element.rating }}</td>
-    </ng-container>
+
     <ng-container matColumnDef="handle">
       <th mat-header-cell *matHeaderCellDef>Thao tác</th>
       <td mat-cell *matCellDef="let element">
@@ -58,7 +59,7 @@
       </div>
       </td>
     </ng-container>
-    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+    <tr style="border-bottom: solid 2px black; font-weight: 800;" mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
   </table>
 </section>

@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { User } from 'src/app/Model/user';
 import { GenericResponse } from 'src/app/Response/generic-response';
 import { AuthServiceService } from 'src/app/Service/apiService/auth-service.service';
+import { CourseService } from 'src/app/Service/apiService/course.service';
 import { ShareService } from 'src/app/Service/share.service';
 
 @Component({
@@ -15,7 +16,7 @@ export class DashboardComponent implements OnInit {
   isGet = false;
   isAccount = false;
   isList = false;
-  isEdit = false;
+  isLessons = false;
   isOn = false;
   show = '';
   Type = '';
@@ -29,6 +30,7 @@ export class DashboardComponent implements OnInit {
   sec : any | null = 0;
   constructor(    @Inject(Router) private route: Router,
   @Inject(AuthServiceService) private authService: AuthServiceService,
+  @Inject(CourseService) private courseService: CourseService,
   private shareService: ShareService){
     this.iconList = 'chevron_right';
     this.Type = " Chào mừng admin đã đến với trang web quản lý nhà xe. Chúc anh chị có ngày làm việc tốt lành ";
@@ -94,9 +96,9 @@ export class DashboardComponent implements OnInit {
     this.isOn = true;
     document.getElementById("review")?.setAttribute("style","font-weight : bold;");
   }
-  editCourses(){
+  lessonsHandle(){
     this.reset();
-    this.isEdit = true;
+    this.isLessons = true;
     this.isOn = true;
     document.getElementById("edit")?.setAttribute("style","font-weight : bold;");
   }
@@ -110,7 +112,7 @@ export class DashboardComponent implements OnInit {
     this.isAdd = false;
     this.isGet = false;
     this.isAccount = false;
-    this.isEdit = false;
+    this.isLessons = false;
     this.isList = false;
     document.getElementById("addCourse")?.setAttribute("style","font-weight : normal;");  
     document.getElementById("review")?.setAttribute("style","font-weight : normal;");
@@ -127,6 +129,9 @@ export class DashboardComponent implements OnInit {
   validateUser(){
     this.authService.getInfoUser().subscribe((data: User) =>{
       this.shareService.setIdUser(data.userDTO.id);
+      this.courseService.getCourse(data.userDTO.id).subscribe((data: any) => {
+        this.shareService.setCourses(data);
+      });
       this.shareService.setUser(data);
       this.authService.validateToken().subscribe((data: GenericResponse) =>{
       },
