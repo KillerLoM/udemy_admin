@@ -29,53 +29,149 @@
     </div>
   </div> -->
 <div class="d-flex justify-content-center user-account">
-
-
-<div class="d-flex flex-row mb-3">
+  <div class="d-flex flex-row mb-3">
+    <div class="p-2">
+      <div class="d-flex align-items-stretch justify-content-center">
+        <div _ngcontent-ng-c3843178991="" class="circle p-2">
+          {{ nameInput }}
+        </div>
+      </div>
+    </div>
+    <div class="d-flex flex-column mb-3">
+      <div class="p-2">
+        <mat-label>Mã giáo viên của bạn trên hệ thống</mat-label>
+        <input
+          nzSize="large"
+          nz-input
+          placeholder="Basic usage"
+          [(ngModel)]="idUser"
+          [disabled]="true"
+        />
+      </div>
+      <form action="" [formGroup]="userForm">
+        <div class="p-2" style="margin-top: 20px; margin-bottom: 20px">
+          <mat-label>Tên của bạn là</mat-label>
+          <input
+            nzSize="large"
+            nz-input
+            placeholder="Basic usage"
+            formControlName="nameFormControl"
+          />
+        </div>
+        <div class="p-2">
+          <mat-label>Email tạo tài khoản của bạn</mat-label>
+          <input
+            nzSize="large"
+            nz-input
+            placeholder="Basic usage"
+            formControlName="emailFormControl"
+          />
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<p class="text-center heading">
+  Bạn đã đồng hành cùng chúng tôi được: {{ differenceInDaysResult }} ngày,
+  {{ differenceInHoursResult }} giờ
+</p>
+<p class="text-center heading">
+  Ngày tạo tài khoản: {{ formatDate(user?.userDTO?.createdAt) }} vào lúc
+  {{ forrmatTime(user?.userDTO?.createdAt) }}
+</p>
+<div class="d-flex flex-column mb-3 justify-content-md-around">
   <div class="p-2">
-    <div class="d-flex align-items-stretch justify-content-center">
-      <div _ngcontent-ng-c3843178991="" class="circle p-2">
-        {{ nameInput }}
+    <button
+      nzSize="large"
+      nz-button
+      nzType="primary"
+      (click)="loadOne()"
+      [nzLoading]="isLoadingOne"
+    >
+      Cập nhật thông tin tài khoản
+    </button>
+  </div>
+  <div class="p-2">
+    <button
+      nzSize="large"
+      nz-button
+      nzType="default"
+      (click)="handleChangePassword()"
+    >
+      Đổi mật khẩu
+    </button>
+  </div>
+</div>
+
+<nz-modal
+  [(nzVisible)]="isVisible"
+  nzTitle="Đổi mật khẩu"
+  (nzOnCancel)="handleCancel()"
+  (nzOnOk)="handleOk()"
+  [nzOkLoading]="isOkLoading"
+>
+  <div *nzModalContent>
+    <div class="d-flex flex-column mb-3">
+      <div class="p-2">
+        <label for="password">Nhập mật khẩu hiện tại</label>
+        <nz-input-group [nzSuffix]="suffixTemplate">
+          
+          <input
+            id="password"
+            [type]="passwordVisible ? 'text' : 'password'"
+            nz-input
+            placeholder="Nhập mật khẩu tại đây"
+            [(ngModel)]="password"
+          />
+        </nz-input-group>
+      </div>
+
+      <ng-template #suffixTemplate>
+        <span
+          nz-icon
+          [nzType]="passwordVisible ? 'eye-invisible' : 'eye'"
+          (click)="passwordVisible = !passwordVisible"
+        ></span>
+      </ng-template>
+      <div class="p-2">
+        <label for="newPassword">Nhập mật khẩu mới</label>
+        <nz-input-group [nzSuffix]="suffixTemplate">
+          
+          <input
+            id="newPassword"
+            [type]="passwordVisible ? 'text' : 'password'"
+            nz-input
+            placeholder="Nhập mật khẩu tại đây"
+            [(ngModel)]="newpassword"
+          />
+        </nz-input-group>
+        <ng-template #suffixTemplate>
+          <span
+            nz-icon
+            [nzType]="passwordVisible ? 'eye-invisible' : 'eye'"
+            (click)="passwordVisible = !passwordVisible"
+          ></span>
+        </ng-template>
+      </div>
+      <div class="p-2">
+        <label for="newPassword">Nhập lại mật khẩu mới</label>
+        <nz-input-group [nzSuffix]="suffixTemplate">
+          <input
+            id="newPassword"
+            [type]="passwordVisible ? 'text' : 'password'"
+            nz-input
+            placeholder="Nhập mật khẩu tại đây"
+            [(ngModel)]="confirmpass"
+          />
+        </nz-input-group>
+        <ng-template #suffixTemplate>
+          <span
+            nz-icon
+            [nzType]="passwordVisible ? 'eye-invisible' : 'eye'"
+            (click)="passwordVisible = !passwordVisible"
+          ></span>
+        </ng-template>
       </div>
     </div>
   </div>
-  <div class="d-flex flex-column mb-3">
-    
-    <div class="p-2">
-      <mat-label>Mã giáo viên của bạn trên hệ thống</mat-label>
-      <input
-        nzSize="large"
-        nz-input
-        placeholder="Basic usage"
-        [(ngModel)]="idUser"
-        [disabled]="true"
-      />
-    </div>
-    <form action="" [formGroup]="userForm">
-    <div class="p-2" style="margin-top: 20px; margin-bottom: 20px;">
-      <mat-label>Tên của bạn là</mat-label>
-      <input
-        nzSize="large"
-        nz-input
-        placeholder="Basic usage"
-        formControlName="nameFormControl"
-      />
-    </div>
-    <div class="p-2">
-      <mat-label>Email tạo tài khoản của bạn</mat-label>
-      <input
-        nzSize="large"
-        nz-input
-        placeholder="Basic usage"
-        formControlName="emailFormControl"
-      />
-    </div>
-</form>
-  </div>
-</div>
-</div>
-<p class="text-center heading">Bạn đã đồng hành cùng chúng tôi được: {{differenceInDaysResult}} ngày, {{differenceInHoursResult}} giờ </p>
-<p class="text-center heading">Ngày tạo tài khoản: {{formatDate(user?.userDTO?.createdAt)}} vào lúc {{forrmatTime(user?.userDTO?.createdAt)}}  </p>
-
-<button nzSize="large" nz-button nzType="primary" (click)="loadOne()" [nzLoading]="isLoadingOne">Cập nhật thông tin tài khoản</button>
-
+</nz-modal>

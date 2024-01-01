@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { isThisSecond } from 'date-fns';
 import { User } from 'src/app/Model/user';
 import { GenericResponse } from 'src/app/Response/generic-response';
 import { AuthServiceService } from 'src/app/Service/apiService/auth-service.service';
@@ -20,7 +21,10 @@ export class DashboardComponent implements OnInit {
   isLoading = true;
   isOn = false;
   show = '';
-  isVisible = true;
+  isHidden = false;
+  isVisible = false;
+
+  isOkLoading = false;
   Type = '';
   active : HTMLElement | null = null;
   hide = true;
@@ -88,6 +92,29 @@ export class DashboardComponent implements OnInit {
     this.isLessons = true;
     this.isOn = true;
     document.getElementById("edit")?.setAttribute("style","font-weight : bold;");
+  }
+  showModal(): void {
+    this.isVisible = true;
+    this.isHidden = true;
+  }
+
+  handleOk(): void {
+    this.isOkLoading = true;
+    setTimeout(() => {
+      this.isVisible = false;
+      this.isOkLoading = false;
+
+    }, 1000);
+    this.authService.logOut().subscribe((data: any) =>{
+
+    })
+    localStorage.clear();
+    alert("Đã đăng xuất");
+    this.validateUser();
+  }
+
+  handleCancel(): void {
+    this.isVisible = false;
   }
   reset(){
     this.isAdd = false;

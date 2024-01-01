@@ -20,7 +20,13 @@ export class UserAccountComponent implements OnInit {
   userForm!: FormGroup;
   currentDate: Date = new Date();
   differenceInDaysResult: number = 0;
+  isVisible = false;
+  isOkLoading = false;
   isLoadingOne = false;
+  passwordVisible = false;
+  password?: string;
+  newpassword?: string;
+  confirmpass?: string;
   differenceInHoursResult: number = 0;
   constructor(
     @Inject(ShareService) private shareService: ShareService,
@@ -90,7 +96,7 @@ export class UserAccountComponent implements OnInit {
   initValue(): void {
     const dateObject = new Date(this.user?.userDTO.createdAt ?? new Date());
     this.differenceInDaysResult = differenceInDays(this.currentDate,dateObject);
-    this.differenceInHoursResult = differenceInHours(this.currentDate,dateObject);
+    this.differenceInHoursResult = differenceInHours(this.currentDate,dateObject) -  (24*this.differenceInDaysResult);
     
     this.userForm.patchValue({
       emailFormControl: this.user?.userDTO.email,
@@ -109,5 +115,29 @@ export class UserAccountComponent implements OnInit {
     const seconds = dateObject.getSeconds();
     return hours +" giờ " + minutes + " phút " + seconds + " giây";
   }
-  
+  handleChangePassword(){
+    this.isVisible = true;
+  }
+  handleOk(): void {
+    this.isOkLoading = true;
+
+      if(this.password && this.newpassword && this.confirmpass){
+        this.authService.changePassword(this.password, this.newpassword, this.confirmpass).subscribe((data: any) =>{
+          this.msg.success("Đã đổi mật khẩu thành công");
+          this.isVisible = false;
+          this.isOkLoading = false;
+          this.password = '';
+          this.newpassword = '';
+          this.confirmpass = '';
+        })
+      }
+      else{
+        this.msg.error("Đã có lỗi, vui lòng nhập đầy đủ vào các ô input như trên")
+        this.isOkLoading = false;
+      }
+  }
+
+  handleCancel(): void {
+    this.isVisible = false;
+  }
 }

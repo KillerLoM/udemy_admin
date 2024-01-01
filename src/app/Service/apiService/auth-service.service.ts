@@ -16,10 +16,10 @@ export class AuthServiceService {
     private appService: AppService,
     private http: HttpClient
   ) { 
-    
+    this.url = this.appService.getUrlAuth();
   }
   loginHandle(email: string, password: string): Observable<LoginResponse> {
-    this.url = this.appService.getUrlAuth() ;
+    
     let obj = { email: email, password: password}
     return this.http.post<LoginResponse>(`${this.url}login`, obj).pipe();
   }
@@ -29,12 +29,11 @@ export class AuthServiceService {
     return this.http.post<SignUpResponse>(`${this.url}register`, obj).pipe();
   }
   getInfoUser(): Observable<User> {
-    this.url = this.appService.getUrlProfile();
     let headers = new HttpHeaders().set('Content-Type', 'application/json');
-    return this.http.get<User>(`${this.url}`,{headers}).pipe();
+    return this.http.get<User>(`${this.appService.getUrlProfile()}`,{headers}).pipe();
   }
   validateToken(): Observable<GenericResponse> {
-    this.url = this.appService.getUrlAuth();
+    
     const token = localStorage.getItem('token');
 
     if(token){
@@ -47,5 +46,15 @@ export class AuthServiceService {
     let obj = {id: id, fullname:fullname, email:email, created:createdAt};
     this.url = this.appService.getUrlProfile();
     return this.http.put<User>(`${this.url}`, obj).pipe();
+  }
+  logOut() : Observable<any>{
+    return this.http.post(`${this.url}logout`,{}).pipe();
+  }
+  changePassword(password: string, newPassword: string, confrimPassword: string): Observable<any>{
+    let obj = {  
+      password: password,
+      newPassword: newPassword,
+      confrimPassword: confrimPassword}
+    return this.http.post(`${this.url}change-password`, obj).pipe();
   }
 }

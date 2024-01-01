@@ -109,26 +109,29 @@
           </svg>
           <span class="certi">Quản lý tài khoản</span>
         </div>
-        <button
+
+
+       
+        <div
           type="button"
           class="menu-account btn"
-          id="menu-account-id"
-          style="border: none"
-          (click)="HandleAccount($event)"
+          style=" bottom: 0; top:0; margin-top: 100%;overflow: hidden;"
+          (click)="showModal()"
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            height="24"
-            viewBox="0 -960 960 960"
-            width="24"
-          >
-            <path
-              d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h280v80H200Zm440-160-55-58 102-102H360v-80h327L585-622l55-58 200 200-200 200Z"
-              fill="#22493B"
-            />
-          </svg>
+
           <span class="certi">Đăng xuất </span>
-        </button>
+          <svg
+          xmlns="http://www.w3.org/2000/svg"
+          height="24"
+          viewBox="0 -960 960 960"
+          width="24"
+        >
+          <path
+            d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h280v80H200Zm440-160-55-58 102-102H360v-80h327L585-622l55-58 200 200-200 200Z"
+            fill="#22493B"
+          />
+        </svg>
+      </div>
       </div>
       <div class="all" style="width: 120%">
         <div *ngIf="isOn">
@@ -154,5 +157,19 @@
         <app-lessons *ngIf="isLessons"></app-lessons>
       </div>
     </div>
+    <div *ngIf="isHidden">
+
+
+    <nz-modal
+    [(nzVisible)]="isVisible"
+    nzTitle="Xác nhận đăng xuất"
+    (nzOnCancel)="handleCancel()"
+    (nzOnOk)="handleOk()"
+    [nzOkLoading]="isOkLoading"
+  >
+    <p *nzModalContent>Sau khi bấm vào OK bạn sẽ phải đăng nhập lại. Bạn chắc chắn chứ ?</p>
+    
+  </nz-modal>
+</div>
   </body>
 </html>
