@@ -133,6 +133,7 @@ export class AddCoursesComponent implements OnInit, AfterViewInit {
         break;
       case 'error':
         this.msg.error(info.file.status);
+
         console.log(info.file.error.error.text);
         this.avatarUrl = info.file.error.error.text;
         this.loading = false;

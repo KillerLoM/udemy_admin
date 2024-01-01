@@ -52,11 +52,12 @@ export class ChildLessonsComponent implements OnInit {
     _fileList: NzUploadFile[]
   ): Observable<boolean> =>
     new Observable((observer: Observer<boolean>) => {
-      const isVideo = file.type!.startsWith('video/');
+      const isVideo = file.type === 'video/mp4' || file.type === 'video/mp3' || file.type === 'video/webm' ;
       const isNotMkv = !file.name.endsWith('.mkv');
       const isLt1G = file.size! / 1024 / 1024 / 1024 < 1;
       if (!isVideo || !isNotMkv) {
-        this.msg.error('Bạn không thể upload video có dạng .mkv!');
+        
+        this.msg.error('Bạn không thể upload video có dạng .mkv!' + file.type);
         observer.complete();
         return;
       }
@@ -85,9 +86,10 @@ export class ChildLessonsComponent implements OnInit {
                 this.positionList[i] = i + 1;
               }
             }
-          if (this.listLessons.length < 0) {
-            this.positionList = [1];
-          }
+        }
+        if (this.numberOfLessons == 0) {
+          this.positionList = [1];
+          alert(1);
         }
       });
     }
