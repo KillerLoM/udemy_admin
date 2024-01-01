@@ -32,6 +32,7 @@ import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzStepsModule } from 'ng-zorro-antd/steps';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { CommonModule } from '@angular/common';
+import { NzSkeletonModule } from 'ng-zorro-antd/skeleton';
 
 import {
   MenuFoldOutline,
@@ -52,6 +53,8 @@ import { LessonsComponent } from './component/lessons/lessons.component';
 import { NzEmptyModule } from 'ng-zorro-antd/empty';
 import { ChildLessonsComponent } from './component/lessons/child-lessons/child-lessons.component';
 import { NzTableModule } from 'ng-zorro-antd/table';
+import { NzSpinModule } from 'ng-zorro-antd/spin';
+import { NzAlertModule } from 'ng-zorro-antd/alert';
 registerLocaleData(vi);
 
 @NgModule({
@@ -78,10 +81,13 @@ registerLocaleData(vi);
     NzSelectModule,
     NzResultModule,
     ReactiveFormsModule,
+    NzSpinModule,
     NzButtonModule,
+    NzAlertModule,
     NzStepsModule,
     NzDividerModule,
     NzBreadCrumbModule,
+    NzSkeletonModule,
     CommonModule,
     MatStepperModule,
     NzUploadModule,MatTableModule,

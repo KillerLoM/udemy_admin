@@ -33,6 +33,7 @@ export class LessonsService {
     return this.http.post(`${this.url}`, obj).pipe();
   }
   putLessons(
+    id: number,
     name: string,
     video_url: string,
     courseId: number,
@@ -44,9 +45,12 @@ export class LessonsService {
       courseId: courseId,
       position: position,
     };
-    return this.http.put(`${this.url}/${courseId}`, obj).pipe();
+    return this.http.put(`${this.url}/${id}`, obj).pipe();
   }
   deleteLessons(id: number): Observable<any> {
     return this.http.delete(`${this.url}/${id}`).pipe();
+  }
+  getLessonByPosition(position: number): Observable<Lessons>{
+    return this.http.get<Lessons>(`${this.url}/detail/${position}`).pipe();
   }
 }

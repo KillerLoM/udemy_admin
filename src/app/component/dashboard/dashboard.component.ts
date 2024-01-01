@@ -17,39 +17,26 @@ export class DashboardComponent implements OnInit {
   isAccount = false;
   isList = false;
   isLessons = false;
+  isLoading = true;
   isOn = false;
   show = '';
+  isVisible = true;
   Type = '';
   active : HTMLElement | null = null;
   hide = true;
   iconList = '';
-  isWine = false;
-  isCertificate = false;
-  hours : any | null = 0;
-  mins : any | null = 0;
-  sec : any | null = 0;
   constructor(    @Inject(Router) private route: Router,
   @Inject(AuthServiceService) private authService: AuthServiceService,
   @Inject(CourseService) private courseService: CourseService,
   private shareService: ShareService){
     this.iconList = 'chevron_right';
-    this.Type = " Chào mừng admin đã đến với trang web quản lý nhà xe. Chúc anh chị có ngày làm việc tốt lành ";
-    if(!this.isAdd && !this.isGet){
-      setInterval(() => {
-        this.updateTime();
-      })
-    }
+
     this.validateUser();
   }
   ngOnInit(): void {
-    
+
   }
-  updateTime(){
-      let currentTime = new Date();
-      this.hours = (currentTime.getHours() < 10 ?"0":"") + currentTime.getHours();
-      this.mins = (currentTime.getMinutes() < 10 ?"0":"") + currentTime.getMinutes();
-      this.sec = (currentTime.getSeconds() < 10 ?"0":"") + currentTime.getSeconds();
-  }
+
   HandleAccount(element: any){
     const element1 = element;
     console.log(element1);
@@ -72,6 +59,7 @@ export class DashboardComponent implements OnInit {
       this.isAccount = true;
       this.isOn = true;
     }
+    this.Type = 'Quản lý tài khoản';
   }
   HandleList(element: any){
     this.hide = false;
@@ -81,8 +69,7 @@ export class DashboardComponent implements OnInit {
     }
     this.active = document.querySelector('.menu-list') as HTMLElement;
     this.active?.classList.add('active-menu');
-   
-    console.log(this.active?.className);
+    this.Type = 'Quản lý các khóa học'
   }
   addCourses(){
     this.reset();
@@ -102,12 +89,6 @@ export class DashboardComponent implements OnInit {
     this.isOn = true;
     document.getElementById("edit")?.setAttribute("style","font-weight : bold;");
   }
-  list(){
-    this.reset();
-    this.isList = true;
-    this.isOn = true;
-    document.getElementById("list")?.setAttribute("style","font-weight : bold;");
-  }
   reset(){
     this.isAdd = false;
     this.isGet = false;
@@ -119,13 +100,6 @@ export class DashboardComponent implements OnInit {
     document.getElementById("edit")?.setAttribute("style","font-weight : normal;");
     document.getElementById("list")?.setAttribute("style","font-weight : normal;");
   }
-  public HandleEvent($event: any) : void{
-    this.show = $event;
-    this.Type  =  'Danh sách Sâm'
-  }
-  certificateInput(){
-
-  }
   validateUser(){
     this.authService.getInfoUser().subscribe((data: User) =>{
       this.shareService.setIdUser(data.userDTO.id);
@@ -134,6 +108,10 @@ export class DashboardComponent implements OnInit {
       });
       this.shareService.setUser(data);
       this.authService.validateToken().subscribe((data: GenericResponse) =>{
+        this.isLoading = false;
+        let btn = document.getElementById('menu-account-id') as HTMLButtonElement;
+        if(btn)
+        btn.click();
       },
       Error=>{
         this.route.navigate(['login']);

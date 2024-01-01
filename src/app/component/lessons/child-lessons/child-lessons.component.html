@@ -17,51 +17,79 @@
   </nz-empty>
 </div>
 <div *ngIf="lengthList >= 1">
-    <nz-table #headerTable [nzData]="listLessons" [nzPageSize]="10" [nzScroll]="{ y: '340px' }">
-        <thead >
-          <tr>
-            <th class ="heading" nzWidth="160px" >Tên bài</th>
-            <th  class ="heading" nzWidth="400px" >Bài giảng</th>
-            <th  class ="heading" nzWidth="80px" >Vị trí bài</th>
-            <th class ="heading" nzWidth="100px" >Thao tác</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let data of headerTable.data">
-            <td class="body-content"  >{{ data.lessonName }}</td>
-            <td class="body-content"  ><video src="{{ data.video_url }}" controls width="400px" height="100%"></video></td>
-            <td class="body-content"  >Bài số {{ data.position }}</td>
-            <td class="body-content"  >
-
-                <button class="btn" (click)="handleUpdate(data.id)">
-                <svg width="30" height="30" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="m14.559 9.02.92.92L6.419 19h-.92v-.92l9.06-9.06zm3.6-6.02c-.25 0-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83a.996.996 0 0 0 0-1.41l-2.34-2.34c-.2-.2-.45-.29-.71-.29zm-3.6 3.19L3.499 17.25V21h3.75l11.06-11.06-3.75-3.75z" fill="#22493B"/>
-                </svg>
-            </button>
-            <button class="btn" (click)="handleUpdate(data.id)">
-                <svg width="30" height="30" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M16.5 9v10h-8V9h8zM15 3h-5L9 4H5.5v2h14V4H16l-1-1zm3.5 4h-12v12c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7z" fill="#22493B"/>
-                </svg>
-                
-            </button>
+  <nz-table
+    #headerTable
+    [nzData]="listLessons"
+    [nzPageSize]="10"
+    [nzScroll]="{ y: '340px' }"
+  >
+    <thead>
+      <tr>
+        <th class="heading" nzWidth="160px">Tên bài</th>
+        <th class="heading" nzWidth="400px">Bài giảng</th>
+        <th class="heading" nzWidth="80px">Vị trí bài</th>
+        <th class="heading" nzWidth="100px">Thao tác</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of headerTable.data">
+        <td class="body-content">{{ data.lessonName }}</td>
+        <td class="body-content">
+          <video
+            src="{{ data.video_url }}"
+            controls
+            width="400px"
+            height="100%"
+          ></video>
         </td>
-          </tr>
-        </tbody>
-      </nz-table>
-      <div class="d-flex justify-content-end" >
-        <button mat-button color="accent" (click)="handleAdd()">Thêm bài học mới</button>
-      </div>
-      
+        <td class="body-content">Bài số {{ data.position }}</td>
+        <td class="body-content">
+          <button class="btn" (click)="handleUpdate(data.id)">
+            <svg
+              width="30"
+              height="30"
+              viewBox="0 0 25 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="m14.559 9.02.92.92L6.419 19h-.92v-.92l9.06-9.06zm3.6-6.02c-.25 0-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83a.996.996 0 0 0 0-1.41l-2.34-2.34c-.2-.2-.45-.29-.71-.29zm-3.6 3.19L3.499 17.25V21h3.75l11.06-11.06-3.75-3.75z"
+                fill="#22493B"
+              />
+            </svg>
+          </button>
+          <button class="btn" (click)="showConfirm(data.id)">
+            <svg
+              width="30"
+              height="30"
+              viewBox="0 0 25 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M16.5 9v10h-8V9h8zM15 3h-5L9 4H5.5v2h14V4H16l-1-1zm3.5 4h-12v12c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7z"
+                fill="#22493B"
+              />
+            </svg>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+  <div class="d-flex justify-content-end">
+    <button mat-button color="accent" (click)="handleAdd()">
+      Thêm bài học mới
+    </button>
+  </div>
 </div>
 <section class="z-3 position-fixed section-placeholder abc" *ngIf="isAdd">
   <div class="modal_overlay">
     <div
       class="modal_inner"
-      style="width: 727px; height: 553px; margin-top: 5%"
+      style="width: 727px; height: 623px"
     >
-
       <div class="form_heading">
-        <span class="Title"> Tạo bài học mới </span>
+        <span class="Title">{{title}}</span>
         <button
           class="material-symbols-outlined"
           id="cancel"
@@ -74,72 +102,99 @@
       </div>
 
       <div class="container">
-        <form  action="" [formGroup]="lessonsFormGroup">
-            <div class="d-flex flex-row mb-3 title-lessons"  >
-                <div class="name-input p-2" style="margin-top: 22px;">
-                    <label for="nameInput"> Tên bài giảng là:</label>
-                    <input style="width: 476px" id="nameInput" formControlName="nameControl" nz-input placeholder="large size" nzSize="large" />
-                </div>
-                <div class="p-2" style="margin-top: 22px;">
-                    <label for="option" >Bài số:</label>
-                    <div id="option">
-
-                    
-                    <nz-select formControlName="positionControl" nzShowSearch nzAllowClear nzPlaceHolder="Select a person" nzSize="large">
-                        <nz-option *ngFor="let element of positionList" nzLabel="Bài số {{element}}" [nzValue]="element"></nz-option>
-
-                      </nz-select>
-                    </div>
-                </div>
+        <form action="" [formGroup]="lessonsFormGroup">
+          <div class="d-flex flex-row mb-3 title-lessons">
+            <div class="name-input p-2" style="margin-top: 22px">
+              <label for="nameInput"> Tên bài giảng là:</label>
+              <input
+                style="width: 476px"
+                id="nameInput"
+                formControlName="nameControl"
+                nz-input
+                placeholder="large size"
+                nzSize="large"
+              />
             </div>
-
-        <div class="video-input d-flex justify-content-center" *ngIf="!videoUrl" style="padding-top: 100px">
-            <div class="d-flex flex-column mb-3" style="margin-left: 10%">
-                <div class="p-2">
-                    <label for="videoInput" > Video bài giảng:</label>
-                </div>
-                <div class="p-2">
-            <nz-upload
-            nzAction="http://localhost:9000/api/cloudinary/upload"
-            nzName="file"
-            [nzHeaders]="{ authorization: 'authorization-text' }"
-            [nzHeaders]="{ 'Content-Type': 'multipart/form-data' }"
-            [nzBeforeUpload]="beforeUpload"
-            enctype="application/json"
-            nzUploadListType="multipart/form-data"
-            (nzChange)="handleVideoChange($event)"
-          >
-            <button nz-button>
-              <span nz-icon nzType="upload"></span>
-              Bấm vào đây để đăng tải video
-            </button>
-          </nz-upload>
+            <div class="p-2" style="margin-top: 22px" >
+              <label for="option">Bài số:</label>
+              <div id="option">
+                <select style="width: 128px;
+                height: 40px;" formControlName="positionControl" class="form-select form-select-sm" aria-label="Small select example">
+                  <option selected>Bài học số</option>
+                  <option  *ngFor="let element of positionList" value="{{element}}">Bài học số {{element}}</option>
+  
+                </select>
+              </div>
+            </div>
           </div>
-        </div>
-        </div>
-        <div class="video-input d-flex justify-content-cente" *ngIf="videoUrl">
-                <div class="d-flex flex-column mb-3">
-                    <div class="p-2">
-                        <span>
-                            Đây là video bài giảng xem trước
-                        </span>
-                    </div>
-                    <div class="p-2">
-                        <video style="background-color: black; margin-left: 33px" src="{{videoUrl}}" width="70%" height="100%" controls autoplay></video>
-                    </div>
-                </div>
-            
-        </div>
 
-        </form> 
+          <div
+            class="video-input d-flex justify-content-center"
+            *ngIf="!videoUrl"
+            style="padding-top: 100px"
+          >
+            <div class="d-flex flex-column mb-3" style="margin-left: 10%">
+              <div class="p-2">
+                <label for="videoInput"> Video bài giảng:</label>
+              </div>
+              <div class="p-2">
+                <nz-upload
+                  nzAction="http://localhost:9000/api/cloudinary/upload"
+                  nzName="file"
+                  [nzHeaders]="{ authorization: 'Authorization'}"
+                  [nzHeaders]="{ 'Content-Type': 'multipart/form-data' }"
+                  [nzBeforeUpload]="beforeUpload"
+                  enctype="application/json"
+                  nzUploadListType="multipart/form-data"
+                  (nzChange)="handleVideoChange($event)"
+                >
+                  <button nz-button>
+                    <span nz-icon nzType="upload"></span>
+                    Bấm vào đây để đăng tải video
+                  </button>
+                </nz-upload>
+              </div>
+            </div>
+          </div>
+          <div
+            class="video-input d-flex justify-content-cente"
+            *ngIf="videoUrl"
+          >
+            <div class="d-flex flex-column mb-3">
+              <div class="p-2">
+                <span> Đây là video bài giảng xem trước </span>
+              </div>
+              <div class="p-2">
+                <video
+                  style="background-color: black; margin-left: 33px"
+                  src="{{ videoUrl }}"
+                  width="478px"
+                  height="333px"
+                  controls
+                  autoplay
+                ></video>
+                <button style="margin-top: 5px" nz-button nzType="dashed" (click)="handleDeleteVideo()">Bấm vào đây để cập nhật video khác</button>
+              </div>
+            </div>
+          </div>
+        </form>
       </div>
       <div class="deletedButton">
         <div class="right-actionsDeleted">
-          <div class="Buttons-cancels btn btn-outline-danger" type="button" (click)="handleCancel()">
+          <div
+            class="Buttons-cancels btn btn-outline-danger"
+            type="button"
+            (click)="handleCancel()"
+          >
             <span class="cancel"> Hủy </span>
           </div>
-          <button class="Buttons-delete btn btn-outline-primary" type="submit" (click)="handleSend()" [disabled]="lessonsFormGroup.invalid">
-            <span class="add"> Tạo bài học</span>
+          <button
+            class="Buttons-delete btn btn-outline-primary"
+            type="submit"
+            (click)="handleSend()"
+            [disabled]="lessonsFormGroup.invalid"
+          >
+            <span class="add"> Xác nhận</span>
           </button>
         </div>
       </div>

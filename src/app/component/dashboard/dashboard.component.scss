@@ -264,71 +264,43 @@ body{
     text-align: left;
     color: #22493b;
 }
-.clock{
-    font-family: 'Poppins', sans-serif;
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-.hero{
-    width: 100%;
-    min-height: 94vh;
-    color: #fff;
-    position: relative;
-}
-.container_clock{
-    width: 800px;
-    height: 180px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: red;
-}
-.clock_inner{
-    width: 107%;
-    height: 154%;
-    background: rgba(235, 0, 255, 0.11);
-    border-radius: 10px;
+.abc{
+    position: fixed !important;
+    top: 0 ;
+    right: 0 ;
+    bottom: 0 ;
+    left: 0 ;
+    z-index:  infinite !important;
+  }
+.container {
     display: flex;
     align-items: center;
     justify-content: center;
-    backdrop-filter: blur(40px);
+    height: 70%;
 }
-.container_clock::before{
-    content: '';
-    width: 180px;
-    height: 180px;
-    background: #f41b75;
-    border-radius: 5px;
-    position: absolute;
-    left: -7%;
-    top: -50%;
-    z-index: -1;
-}
-.container_clock::after{
-    content: '';
-    width: 180px;
-    height: 180px;
-    background: #419aff;
-    border-radius: 50%;
-    position: absolute;
-    right: -7%;
-    bottom: -50%;
-    z-index: -1;
-}
-.clock_inner span{
-    font-size: 100px;
-    width: 110px;
-    display: inline-block;
-    text-align: center;
+.modal_overlay{
+    position: absolute !important;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(30,30,30,0.4);
+  }
+  .modal_inner {
     position: relative;
-}
-.clock_inner span ::after{
-    content: 'HOURS';
-    font-size: 16px;
-    position: absolute;
-    bottom: -5px;
-    left: 50%;
-    transform: translateX(-50%);
-}
+    width: 735px;
+    height: 670px;
+    // margin: 41px 342px 144px 120px;
+    border-radius: 12px;
+    margin-top: 1%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: auto;
+    z-index: 3;
+    align-items: center;
+    justify-content: center;
+  }
+  .modal_overlay{
+    position: absolute !important;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(30,30,30,0.4);
+  }
