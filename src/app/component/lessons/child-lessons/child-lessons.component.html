@@ -16,12 +16,14 @@
     </ng-template>
   </nz-empty>
 </div>
-<div *ngIf="lengthList >= 1">
+<div *ngIf="lengthList >= 1" >
   <nz-table
     #headerTable
     [nzData]="listLessons"
     [nzPageSize]="10"
-    [nzScroll]="{ y: '340px' }"
+    [nzBordered]="true"
+    [nzScroll]="{ y: '370px' }"
+    [nzShowPagination]="false"
   >
     <thead>
       <tr>
@@ -74,8 +76,35 @@
           </button>
         </td>
       </tr>
+      
     </tbody>
+
   </nz-table>
+  <!-- <nz-pagination nzSimple></nz-pagination>
+  <br /> -->
+<div style="display: flex; justify-content: center; align-items: center; margin-top: 20px">
+  <nz-pagination [nzPageIndex]="page+1" [nzPageSize]="10" [nzShowTotal]="rangeTemplate" (nzPageIndexChange)="handlePagination($event)" [nzTotal]="numberOfLessons" ></nz-pagination>
+    <ng-template #rangeTemplate let-range="range" let-total>
+      Bài học từ {{ range[0] }} đến {{ range[1] }} thuộc {{ total }} bài học 
+    </ng-template>
+  </div>
+  <!-- <nz-pagination [(nzPageIndex)]="current" [nzTotal]="50" [nzSize]="'small'"></nz-pagination>
+  <br />
+  <nz-pagination
+    [(nzPageIndex)]="current"
+    [nzTotal]="50"
+    [nzSize]="'small'"
+    nzShowSizeChanger
+    nzShowQuickJumper
+  ></nz-pagination>
+  <br />
+  <nz-pagination
+    [(nzPageIndex)]="current"
+    [nzTotal]="50"
+    [nzSize]="'small'"
+    [nzShowTotal]="totalTemplate"
+  ></nz-pagination>
+  <ng-template #totalTemplate let-total>Total {{ total }} items</ng-template> -->
   <div class="d-flex justify-content-end">
     <button mat-button color="accent" (click)="handleAdd()">
       Thêm bài học mới

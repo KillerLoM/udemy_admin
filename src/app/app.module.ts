@@ -55,6 +55,7 @@ import { ChildLessonsComponent } from './component/lessons/child-lessons/child-l
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { NzAlertModule } from 'ng-zorro-antd/alert';
+import { NzPaginationModule } from 'ng-zorro-antd/pagination';
 registerLocaleData(vi);
 
 @NgModule({
@@ -66,7 +67,7 @@ registerLocaleData(vi);
     AddCoursesComponent,
     UserAccountComponent,
     LessonsComponent,
-    ChildLessonsComponent
+    ChildLessonsComponent,
   ],
   imports: [
     BrowserModule,
@@ -78,6 +79,7 @@ registerLocaleData(vi);
     BrowserAnimationsModule,
     NzTableModule,
     NzEmptyModule,
+    NzPaginationModule,
     NzSelectModule,
     NzResultModule,
     ReactiveFormsModule,

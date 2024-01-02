@@ -1,8 +1,9 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, HostListener, Inject, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { isThisSecond } from 'date-fns';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
+import { NzTableComponent } from 'ng-zorro-antd/table';
 import { NzUploadChangeParam, NzUploadFile } from 'ng-zorro-antd/upload';
 import { Observable, Observer } from 'rxjs';
 import { Courses } from 'src/app/Model/courses';
@@ -15,7 +16,7 @@ import { ShareService } from 'src/app/Service/share.service';
   templateUrl: './child-lessons.component.html',
   styleUrls: ['./child-lessons.component.scss'],
 })
-export class ChildLessonsComponent implements OnInit {
+export class ChildLessonsComponent implements OnInit{
   idCourse: number | null = null;
   listOfData: Lessons[] = [];
   isEmpty = true;
@@ -26,9 +27,10 @@ export class ChildLessonsComponent implements OnInit {
   confirmModal?: NzModalRef;
   numberOfLessons = 0;
   positionInit: number = 0;
+  page: number = 0;
   selectedValue: any;
   title = 'Tạo bài học mới';
-
+  current = 1;
   lengthList = 0;
   isEdit = false;
   lessonsFormGroup = this.formBuilder.group({
@@ -36,17 +38,37 @@ export class ChildLessonsComponent implements OnInit {
     videoControl: ['', Validators.required],
     positionControl: ['', Validators.required],
   });
-
+  @ViewChild('headerTable', { static: false }) nzTableComponent?: NzTableComponent<Lessons>;
   constructor(
     @Inject(ShareService) private shareService: ShareService,
     @Inject(LessonsService) private lessonsService: LessonsService,
+   
+    private el: ElementRef,
     private formBuilder: FormBuilder,
     private modal: NzModalService,
     private msg: NzMessageService
   ) {
     this.idCourse = this.shareService.getIdCourse();
     this.positionList = [];
+
   }
+  
+  onTableScroll(event: any): void {
+    alert(1);
+    if (this.nzTableComponent && this.nzTableComponent.cdkVirtualScrollViewport) {
+      const tableViewport = this.nzTableComponent.cdkVirtualScrollViewport;
+      alert(tableViewport);
+      // Get the index of the last visible item in the table
+      const lastVisibleIndex = tableViewport.getRenderedRange().end;
+  
+      // Check if the last visible item index is the same as the total number of items
+      if (lastVisibleIndex === this.listOfData.length) {
+        console.log('Scrolled to the bottom of the table');
+        alert('Đã lướt đến cuối cùng của bảng.');
+      }
+    }
+  }
+  
   beforeUpload = (
     file: NzUploadFile,
     _fileList: NzUploadFile[]
@@ -73,9 +95,11 @@ export class ChildLessonsComponent implements OnInit {
   ngOnInit(): void {
     this.getLessons();
   }
+
+  
   getLessons() {
     if (this.idCourse != null) {
-      this.lessonsService.getLessons(this.idCourse).subscribe((data: any) => {
+      this.lessonsService.getLessons(this.idCourse, this.page).subscribe((data: any) => {
         this.listLessons = data.getLessonsByCourseId.content;
         this.numberOfLessons = data.numberOfItems;
         console.log(data);
@@ -89,7 +113,6 @@ export class ChildLessonsComponent implements OnInit {
         }
         if (this.numberOfLessons == 0) {
           this.positionList = [1];
-          alert(1);
         }
       });
     }
@@ -99,7 +122,10 @@ export class ChildLessonsComponent implements OnInit {
     this.isAdd = true;
     this.title = 'Tạo bài học mới';
   }
-
+  handlePagination(event: any){
+    this.page = event - 1;
+    this.getLessons();
+  }
   handleCancel(): void {
     console.log('Button cancel clicked!');
     this.isAdd = false;
@@ -270,4 +296,5 @@ export class ChildLessonsComponent implements OnInit {
         this.getLessons();
       })
   }
+
 }

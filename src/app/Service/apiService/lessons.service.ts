@@ -15,8 +15,9 @@ export class LessonsService {
   ) {
     this.url = this.appService.getUrlLessons();
   }
-  getLessons(id: number): Observable<any> {
-    return this.http.get<any>(`${this.url}/${id}`).pipe();
+  getLessons(id: number, page: number): Observable<any> {
+    let params = new HttpParams().set("page", page);
+    return this.http.get<any>(`${this.url}/${id}`,{params}).pipe();
   }
   postLessons(
     name: string,
