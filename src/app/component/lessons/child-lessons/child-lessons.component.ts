@@ -77,7 +77,7 @@ export class ChildLessonsComponent implements OnInit {
     if (this.idCourse != null) {
       this.lessonsService.getLessons(this.idCourse).subscribe((data: any) => {
         this.listLessons = data.getLessonsByCourseId.content;
-        this.numberOfLessons = data.getLessonsByCourseId.numberOfElements
+        this.numberOfLessons = data.numberOfItems;
         console.log(data);
         if (this.listLessons) {
           this.lengthList = this.listLessons.length;
@@ -178,8 +178,22 @@ export class ChildLessonsComponent implements OnInit {
             let id = this.idCourse;
             let newLesson = this.findItemsByPosition(this.listLessons, position);
             if(newLesson == null || newLesson == undefined){
-               this.lessonsService.getLessonByPosition(position).subscribe((data: Lessons) => {
+               this.lessonsService.getLessonByPosition(position, this.idCourse).subscribe((data: Lessons) => {
                 newLesson = data;
+                this.lessonsService.putLessons(newLesson.id, newLesson.lessonName, newLesson.video_url,id, this.numberOfLessons + 10).subscribe(() => {
+                  this.lessonsService.putLessons(lesson.id, name, videoUrl, id, position).subscribe((data: any)=>{
+                    this.msg.success("Đã cập nhật bài " + name + " ở vị trí bài số " + position)
+                    setTimeout(() =>{
+                      this.lessonsService.putLessons(newLesson.id, newLesson.lessonName, newLesson.video_url,id, this.positionInit).subscribe((data) => {
+                        this.msg.success("Đã cập nhật bài " + newLesson.lessonName + " ở vị trí bài số " + this.positionInit);
+                        this.getLessons();
+                        this.handleCancel();
+                        this.lessonsFormGroup.reset();
+                        return;
+                      })
+                    }, 3000)
+                  })
+                })
                }, 
                Error=>{
                 this.lessonsService
@@ -192,21 +206,9 @@ export class ChildLessonsComponent implements OnInit {
                   return;
                 });
                })
+               
             }
-            this.lessonsService.putLessons(newLesson.id, newLesson.lessonName, newLesson.video_url,id, this.numberOfLessons + 1).subscribe(() => {
-              this.lessonsService.putLessons(lesson.id, name, videoUrl, id, position).subscribe((data: any)=>{
-                this.msg.success("Đã cập nhật bài " + name + " ở vị trí bài số " + position)
-                setTimeout(() =>{
-                  this.lessonsService.putLessons(newLesson.id, newLesson.lessonName, newLesson.video_url,id, this.positionInit).subscribe((data) => {
-                    this.msg.success("Đã cập nhật bài " + newLesson.lessonName + " ở vị trí bài số " + this.positionInit);
-                    this.getLessons();
-                    this.handleCancel();
-                    this.lessonsFormGroup.reset();
-                    return;
-                  })
-                }, 3000)
-              })
-            })
+
 
           }
         }

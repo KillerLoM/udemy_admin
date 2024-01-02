@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@angular/core';
 import { AppService } from '../app.service';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Lessons } from 'src/app/Model/lessons';
 
@@ -50,7 +50,8 @@ export class LessonsService {
   deleteLessons(id: number): Observable<any> {
     return this.http.delete(`${this.url}/${id}`).pipe();
   }
-  getLessonByPosition(position: number): Observable<Lessons>{
-    return this.http.get<Lessons>(`${this.url}/detail/${position}`).pipe();
+  getLessonByPosition(position: number, id_course: number): Observable<Lessons>{
+    let params = new HttpParams().set("id_course", id_course);
+    return this.http.get<Lessons>(`${this.url}/detail/${position}`,{params}).pipe();
   }
 }
