@@ -56,6 +56,7 @@ import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { NzAlertModule } from 'ng-zorro-antd/alert';
 import { NzPaginationModule } from 'ng-zorro-antd/pagination';
+import { ForgetPasswordComponent } from './component/forget-password/forget-password.component';
 registerLocaleData(vi);
 
 @NgModule({
@@ -68,6 +69,7 @@ registerLocaleData(vi);
     UserAccountComponent,
     LessonsComponent,
     ChildLessonsComponent,
+    ForgetPasswordComponent,
   ],
   imports: [
     BrowserModule,
